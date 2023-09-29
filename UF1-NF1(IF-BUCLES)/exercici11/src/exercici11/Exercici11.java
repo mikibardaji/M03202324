@@ -39,7 +39,7 @@ public class Exercici11 {
           //  System.out.println("numero1 es mas grande que numero2");
             System.out.println(num1 + " superior a " + num2);
         }
-        else
+        else //tambe podria ser else if (num2>num1)
         { //num2>num1
             System.out.println(num2 + " es superior a " + num1);
         }
