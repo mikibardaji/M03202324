@@ -39,9 +39,29 @@ public static void main(String[] args) {
         eleccio = sc.next().charAt(0); //un caracter un char
         System.out.println("eleccio--<" + eleccio);
         
+        
+        switch(eleccio)
+        {
+            case 's':
+            case 'S':
+                System.out.println("has escogido esqueletos");
+                break;
+            case 'g':    
+            case 'G':
+                System.out.println("gigante");
+                break;
+            case 'b':    
+            case 'B':
+                System.out.println("bandida");
+                break; 
+            default:
+                System.out.println("Opcion no valida");
+                break;
+        }
+        /*
         if (eleccio=='s' || eleccio == 'S')
         {
-            System.out.println("has escogido esqueletos");
+            
         }
         else if (eleccio=='g' || eleccio == 'G')
         {
@@ -59,7 +79,7 @@ public static void main(String[] args) {
         {
             //
         }
-            
+          */  
         
         
         
