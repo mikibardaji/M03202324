@@ -40,7 +40,10 @@ public class SwitchMesosAny {
             case 'A':    
                 System.out.println("Abril");
                 break;
-                
+            case 'G':
+            case 'G':    
+                System.out.println("Agosto");
+                break;                
             default:
                 System.out.println("Letra no valida");
                 break;
