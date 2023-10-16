@@ -19,8 +19,7 @@ public class Ex7Bucles {
         int valor;
         Scanner sc = new Scanner(System.in);
         int cont, cont_posit=0, cont_negativo=0;
-        for (cont = 0; cont < 10
-                ; cont++) {
+        for (cont = 0; cont < 10 ; cont++) {
             System.out.println("Pon el valor");
             valor = sc.nextInt();
             if(valor>=0)
@@ -32,6 +31,15 @@ public class Ex7Bucles {
                 cont_negativo++;
             }
         } //final for
+        if(cont_negativo>0)
+        {
+            System.out.println("has puesto algun negativo");
+        }
+        
+        
+        
+        
+        
         System.out.println("positivos -->" + cont_posit);     
         System.out.println("negativos -->" + cont_negativo); 
     }
