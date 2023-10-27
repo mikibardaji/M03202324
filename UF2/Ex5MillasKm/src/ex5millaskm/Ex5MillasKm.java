@@ -4,6 +4,8 @@
  */
 package ex5millaskm;
 
+import java.util.Scanner;
+
 /**
  *
  * @author mabardaji
@@ -15,10 +17,34 @@ public class Ex5MillasKm {
 Recuerda que una milla son 1,60934 kilómetros. Implementa y utiliza la función:
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println("Pon millas y te las convetira a kilometros.");
+        
+        int millas = pedirDatoEnteroPositivo();
+        
+        double kilometros = millas_a_kilometros(millas);
+        
+        System.out.println(millas + " millas a kilometros es... " + kilometros);
     }
     
     
     //double millas_a_kilometros(int millas) // Devuelve la conversión de millas a kilómetros
+    public static double millas_a_kilometros(int millas) 
+    {
+    final double CONVERSOR_MILLAS = 1.60934;
+    double calculo = millas * CONVERSOR_MILLAS;
     
+    return calculo;
+    }
+    
+    public static int pedirDatoEnteroPositivo() {
+          Scanner sc = new Scanner(System.in); 
+          int num;
+          do
+          {
+           System.out.print("El valor debe ser superior a 0... ");
+           num = sc.nextInt();
+          }while(num<=0);
+          return num;
+    }
+
 }
