@@ -19,6 +19,14 @@ public class Ex8VariasOperaciones {
         int valor;
         
         valor = pedirDatoEnteroPositivo();
+        int suma = suma1aN(valor);
+        System.out.println("La suma de 1 a " + valor + " es " + suma);
+        double mitad = intermedio1aN(valor);
+        System.out.println("La mitad es " + mitad);
+        float multi = producto1aN(valor);
+        System.out.println("La multiplicación de 1 a " + valor + " es " + multi);    
+        
+        
     }
     
     public static int pedirDatoEnteroPositivo() {
@@ -51,8 +59,16 @@ public class Ex8VariasOperaciones {
      */
     public static double intermedio1aN(int n) 
     {
-        double mitad = (n+1)/2;
+        double mitad = (n)/2;
         return mitad;
     }
     
+    public static float producto1aN(int n)
+    {
+        float producto=1; //valor neutre de la multiplicació
+        for (int i = 1; i <= n; i++) {
+            producto =producto * i;
+        }
+        return producto;
+    }
 }
