@@ -16,15 +16,37 @@ public class JuegoSorpresa {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            int bola = caidaBola();
-            if (bola==36)
-            {
-                System.out.println("limiete");
-            }
-            System.out.println(bola);
-        }
+        int money=100; //funcio que s'executa un sol cop per demanar diners
+        int numero_apostado, dinero_apostado, num_bola, dinero_ganado;
+        char quiero_jugar;
+        do{
+                numero_apostado=pedirNumero();
+                dinero_apostado=pedirDineroApuesta(money);
+                System.out.println(numero_apostado + " dinero->" + dinero_apostado );
+                num_bola=caidaBola();
+                pintaAsteriscos(num_bola);
+                if (eresGanador(num_bola, numero_apostado))
+                {// true he ganado
+                    dinero_ganado= ganancias(dinero_apostado, numero_apostado);
+                    money += dinero_ganado;
+                    System.out.println("Ganaste tienes ...." + money);
+                }
+                else
+                {//he perdido dinero apostado
+                    money -= dinero_apostado;
+                    System.out.println("Perdiste te queda ...." + money);
+                }
+                quiero_jugar=seguirJugando();
+        }while(puedesJugar(quiero_jugar, money));
         
+        if(money<=0)
+        {
+            System.out.println("perdiste todo");
+        }
+        else
+        {
+            System.out.println("te vas a casa con " + money);
+        }
     }
  
     
@@ -113,6 +135,7 @@ public class JuegoSorpresa {
              System.out.println("Cuantos quieres apostar, tienes... " + dinero_disponible);
              apuesta = sc.nextInt();
          }while(apuesta>dinero_disponible || apuesta<0);
+         //}while(!(apuesta>0 && apuesta<=dinero_disponible));
          return apuesta;
      }
      
@@ -177,7 +200,7 @@ public class JuegoSorpresa {
          for (int i = 1; i <= num; i++) {
              System.out.print("*");
          }
-         System.out.println("-" + num);
+         System.out.println("=" + num);
      }
     
 }
