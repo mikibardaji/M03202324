@@ -70,6 +70,7 @@ public class PedraPaperTisora {
          int min = 0;
          int range = max - min + 1;
          valor_aleatorio = (int)(Math.random()*range)+min;
+         
          return valor_aleatorio;
      }
      

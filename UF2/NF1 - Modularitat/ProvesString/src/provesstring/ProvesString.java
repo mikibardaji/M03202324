@@ -16,11 +16,21 @@ public class ProvesString {
      * @param args the command line arguments
      */
     public static void main(String[] args) { 
-        char letra=' ';
-        String frase="hsoLAssssss";
-        System.out.println("--"+ frase + "--");
-        String frase2="";
+   
+        String frase;
         Scanner sc = new Scanner(System.in);
+        System.out.println("Pon la frase");
+        frase =sc.nextLine();
+        System.out.println("Pon la letra a buscar...");
+        char letra = sc.nextLine().charAt(0);
+        //mostrarFraseVertical(frase);
+        //int vocales = contarVocales(frase);
+        //int num_letra = encontrarLetra(frase,letra);
+        
+        String continuas = quieresSeguir();
+        //llamar a funcion XXXX(frase)
+        //si devuelve algo mostrar aqui el resultado
+        
         
         //longitudCadena(frase);
         //sustituirLetras(frase);
@@ -155,6 +165,62 @@ public class ProvesString {
 
     private static void agafarSequencia(String frase) {
         System.out.println(frase.subSequence(0, 2));
+    }
+
+    private static void mostrarFraseVertical(String frase) {
+            for (int i = 0; i < frase.length(); i++) {
+                System.out.println(frase.charAt(i));
+        }
+    }
+
+    private static int contarVocales(String frase) {
+        String minusculas = frase.toLowerCase();
+        int vocales=0;
+        for (int i = 0; i < minusculas.length(); i++) {
+            if (minusculas.charAt(i)=='a'
+                    || minusculas.charAt(i)=='e'
+                    || minusculas.charAt(i)=='i'
+                    || minusculas.charAt(i)=='o'
+                    || minusculas.charAt(i)=='u')
+            {
+                vocales++;
+            }
+            
+        }
+        return vocales;
+    }
+
+    /**
+     * función que busca cuantas veces aparece una letra en un string
+     * @param frase string modelo
+     * @param letra a buscar
+     * @return numero de veces que aparece la letra
+     */
+    private static int encontrarLetra(String frase, char letra) {
+        int cont=0;
+        for (int i = 0; i < frase.length(); i++) {
+            if (frase.charAt(i)== letra)
+            {
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+    /**
+     * pregunta al usuario si quiere seguir jugando o continuando
+     * @return SI/NO, en caso contrario sigue preguntado
+     */
+    private static String quieresSeguir() {
+        String respuesta;
+        Scanner sc = new Scanner(System.in);
+        do
+        {
+        System.out.print("Quieres continuar(Si/No): ");
+        respuesta = sc.nextLine();
+        }while(!respuesta.equalsIgnoreCase("Si") &&
+               !respuesta.equalsIgnoreCase("No")  );
+        return respuesta.toUpperCase();
     }
     
 }
