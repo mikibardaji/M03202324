@@ -4,6 +4,8 @@
  */
 package calculpotenciarecursiu;
 
+import java.util.Scanner;
+
 /**
  *
  * Programa que calculi un numero elevat a una potencia , 
@@ -12,14 +14,20 @@ package calculpotenciarecursiu;
 public class CalculPotenciaRecursiu {
 
     /**
-     * @param args the command line arguments
+     * Programa que calculi un numero elevat a una potencia , 
+     * tots dos valors demanats al usuari, de forma recursiva.
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Scanner sc = new  Scanner(System.in);
+        System.out.println("Pon la base");
+        int base = sc.nextInt();
+        System.out.println("Pon el exponente");
+        int exponente = sc.nextInt();
+        System.out.println("potencia " + potencia(base,exponente));
     }
     
     
-    public int suma_pars(int num)
+    public static int suma_pars(int num)
     {
         if (num%2!=0)
         {
@@ -36,10 +44,25 @@ public class CalculPotenciaRecursiu {
         }
     }
     
-    public int potencia(int base, int exp)
+    public static int potencia(int base, int exp)
     {
         //caso base exp sigui 0
-        
+        /*if (exp==1)
+        {
+            return base;
+        }
+        else */
+        if (exp==0)
+        {
+            return 1;
+        }
         //caso recursiu 3.3.3.3 base*base*base* 
+        // 3^5 = 3 * 3^4
+        // 3^4 = 3 * 3^3
+        // 3^3 = 3 * 3^2
+        else 
+        {
+            return base * potencia(base, exp-1);
+        }
     }
 }
