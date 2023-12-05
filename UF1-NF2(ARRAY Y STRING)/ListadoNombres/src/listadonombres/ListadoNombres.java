@@ -7,7 +7,12 @@ package listadonombres;
 import java.util.Scanner;
 
 /**
- *
+ * Crea una llista de noms que gestionarem amb un menú, amb les seguents opcions
+ *Llistar noms (mostrar? tots els noms fins al moment)
+ * Afegir nom(Afegira a la part final el nom que afegeixis)
+* Modificar nom(Buscara el nom i el substituira pel nou que introdueixis)
+ *Cerca en quina posició nom(Posaras el nom a buscar i retornar la posició en que es troba a la llista)
+* Esborrar nom(opció f?cil, quant trobes la posició la deixes en blanc, i despres llistar noms , no te que mostrar les posicions en blanc. 2ona opcioó mes correcta quant troba el nom, va copiant les posicions segunts de tal manera que es mouen totes una posició cap a la esquerra la 3 passa a la 2, la 4 a la 3.)
  * @author mabardaji
  */
 public class ListadoNombres {
@@ -18,6 +23,7 @@ public class ListadoNombres {
         String[] agenda = new String[CAPACIDAD_AGENDA];
         char opcio;
         Scanner sc = new Scanner(System.in);
+        //inicializarAgenda(agenda); ficar-ho tot a blanc i desapareix null
         cargarAgenda(agenda);
         
         do {
@@ -37,13 +43,13 @@ public class ListadoNombres {
                     modificarNomAgenda(agenda);
                     break;
                 case 'd':
-                    //opcio
+                    posicioNom(agenda);
                     break;
                 case 'e':
-                    //opcio
+                    eliminarNom(agenda);
                     break;
                 case 'f':
-                    //opcio
+                    System.out.println("sortir");
                     //salir=true;
                     break;
                 case 'g':
@@ -151,7 +157,100 @@ public class ListadoNombres {
      * @param agenda 
      */
     private static void modificarNomAgenda(String[] agenda) {
-        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Posa el nom a canviar");
+        String nou,nom = sc.nextLine();
+        boolean canviat=false;
+        for (int i = 0; i < agenda.length; i++) {
+            if (agenda[i]!=null)
+            {
+                if(agenda[i].equalsIgnoreCase(nom))
+                {//l'he trobat
+                    System.out.println("Posa el nom nou");
+                    nou = sc.nextLine();
+                    agenda[i] = nou;
+                    System.out.println("Nom canviat");
+                    canviat=true;
+                    i=agenda.length; //per sortir del for
+                }
+            }
+                
+            
+        }
+        if(!canviat)
+        {
+            System.out.println("El nom no existeix");
+        }
+    }
+
+    private static void inicializarAgenda(String[] agenda) {
+        for (int i = 0; i < agenda.length; i++) {
+            agenda[i] = "";
+        }
+    }
+
+    /**
+     * trobar el nom i dir-me en quina posició esta
+     * si no hi es, tambe dir-ho
+     * @param agenda 
+     */
+    private static void posicioNom(String[] agenda) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Posa el nom a trobar");
+        String nou,nom = sc.nextLine();
+        boolean trobat=false;
+        for (int i = 0; i < agenda.length; i++) {
+            if (agenda[i]!=null)
+            {
+                if(agenda[i].equalsIgnoreCase(nom))
+                {//l'he trobat
+                    System.out.println("Es troba a la posició..." + (i+1));
+                    trobat=true;
+                    i=agenda.length; //per sortir del for
+                }
+
+            } 
+        }
+        if(!trobat)
+        {
+            System.out.println("El nom no existeix");
+        }
+    }
+
+    private static void eliminarNom(String[] agenda) {
+        boolean existe=false;
+        int index=0;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Posa el nom a borrar");
+        String nom_afegir = sc.nextLine();
+        while (!existe && index<agenda.length) //afegit==false)
+        {
+            if(agenda[index]!=null) //posició lliure
+            {
+               if(agenda[index].equalsIgnoreCase(nom_afegir))
+                {
+                    agenda[index]=null;
+                    moureTotEndavant(agenda,index);
+                    existe=true;
+                }
+            }
+             
+            index++;
+        }
+    }
+
+    private static void moureTotEndavant(String[] agenda, int index) {
+        for (; index < agenda.length; index++) {
+            if (index!= (agenda.length-1))
+            {
+                agenda[index] = agenda[index+1]; //copiar la informació
+            //de la següent posició a l'actual
+            }
+            else
+            { //index == agenda.lenght-1 (ultima posició array)
+                agenda[index] = null;
+            }
+        }
     }
     
 }
