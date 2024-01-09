@@ -42,9 +42,12 @@ public class MaquinaExpendedora {
                 break;
             case 2:
                 mostrarGolosinas(nombresGolosinas);
-                break;             
+                break;  
+            case 3:
+                reponerGolosinas(existencia, nombresGolosinas);
+                break; 
             case 0:
-                System.out.println("saliendo...");
+                System.out.println("saliendo... han comprado " + total_ventas);
                 break;
             default:
                 break;
@@ -139,5 +142,72 @@ public class MaquinaExpendedora {
              System.out.println("colimna o fila incorrecta");
              return 0;
          }
+    }
+    
+    
+    /** CASA
+     * mostrar el nombre de todas las golosinas que tengan el precio indicado de entrada
+     */
+    public static void mostrarGolosinasPrecio()//(/*   */,int precio)
+    {
+        
+    }
+    
+    /** CASA
+     * calcular el precio de todas las golosinas de la maquina
+     * @return dinero gastado para comprarlas
+     */
+    public static int calcularPrecioTodasGolosinas()
+    {
+        return 0;
+    }
+
+    
+    /**
+     * aumenta 5 productos a las existencias
+     * 2 opciones coordenadas
+     *         o con el nombre de la golosina
+     * @param existencia
+     * @param nombresGolosinas 
+     */
+    private static void reponerGolosinas(int[][] existencia, String[][] nombresGolosinas) {
+        Scanner sc = new Scanner(System.in);
+        String password = "123", user;
+        do
+        {
+            System.out.println("Introdueix contrasenya");
+            user = sc.nextLine();    
+        }while(!password.equals(user));
+//        System.out.println("Pon la fila que quieres");
+//        int fila = sc.nextInt();
+//        System.out.println("Pon la columna");
+//        int columna = sc.nextInt();
+//        System.out.println("Quantes vols afegir");
+//        int anyadir = sc.nextInt();
+//        
+//        existencia[fila][columna] += anyadir;
+//        System.out.println("Ahora hay... "+ existencia[fila][columna]);
+        System.out.println("Que golosinas quieres reponer 5 existencias");
+        String nombre_golosina = sc.nextLine();
+        boolean encontrado = false;
+        for (int fila = 0; fila < nombresGolosinas.length; fila++) {
+            for (int col = 0; col < nombresGolosinas[0].length; col++) {
+                if (nombresGolosinas[fila][col].equalsIgnoreCase(nombre_golosina))
+                {//si la encuentro
+                    existencia[fila][col] += 5;
+                    System.out.println("reponiendo 5 producots");
+                    encontrado = true;
+                }
+            }
+        }
+        if(!encontrado)
+        {
+            System.out.println("Golosina no existe");
+        }
+        
+        
+        
+        
+       
     }
 }
