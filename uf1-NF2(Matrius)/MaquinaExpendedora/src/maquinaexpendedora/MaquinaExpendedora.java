@@ -45,7 +45,17 @@ public class MaquinaExpendedora {
                 break;  
             case 3:
                 reponerGolosinas(existencia, nombresGolosinas);
-                break; 
+                break;                 
+            case 5:
+                double precio_buscado = dimePrecio();
+                mostrarGolosinasPrecio(nombresGolosinas, precio, precio_buscado);
+                break;                 
+         case 6:
+                double total = calcularPrecioTodasGolosinas(precio);
+                 
+                System.out.printf("El total de golosinas es %.1f \n",total);
+                //System.out.println("");
+                break;  
             case 0:
                 System.out.println("saliendo... han comprado " + total_ventas);
                 break;
@@ -65,6 +75,8 @@ public class MaquinaExpendedora {
         System.out.println("2.- Mostra llaminadures-columna elegida");
         System.out.println("3.- Omplir llaminadures");
         System.out.println("4.- Mostrar existencies maquina");
+        System.out.println("5.- Buscar llaminadures per preu");
+        System.out.println("6.- Preu total llaminadures");
         System.out.println("0.- Apagar m?quina");
         System.out.println("Escull opció");
         
@@ -148,8 +160,16 @@ public class MaquinaExpendedora {
     /** CASA
      * mostrar el nombre de todas las golosinas que tengan el precio indicado de entrada
      */
-    public static void mostrarGolosinasPrecio()//(/*   */,int precio)
+    public static void mostrarGolosinasPrecio(String[][] nombresGolosinas, double[][] precio, double precio_buscado)
     {
+        for (int fila = 0; fila < precio.length; fila++) {
+            for (int col = 0; col < precio[fila].length; col++) {
+                if (precio[fila][col]==precio_buscado)
+                {
+                    System.out.println(nombresGolosinas[fila][col]);
+                }
+            }
+        }
         
     }
     
@@ -157,9 +177,17 @@ public class MaquinaExpendedora {
      * calcular el precio de todas las golosinas de la maquina
      * @return dinero gastado para comprarlas
      */
-    public static int calcularPrecioTodasGolosinas()
+    public static double calcularPrecioTodasGolosinas(double[][] precio)
     {
-        return 0;
+        double precio_total = 0;
+        for (int fila = 0; fila < precio.length; fila++) {
+            for (int col = 0; col < precio[fila].length; col++) {
+                precio_total = precio_total + precio[fila][col];  //variable acumuladora
+                //variable = variable (+/-/*//) altra_variable
+            }   
+        }
+        
+        return precio_total;
     }
 
     
@@ -204,10 +232,16 @@ public class MaquinaExpendedora {
         {
             System.out.println("Golosina no existe");
         }
-        
-        
-        
-        
-       
+
+    }
+
+    private static double dimePrecio() {
+        Scanner sc = new Scanner(System.in);
+        double precio;
+        do{
+            System.out.println("Dime precio golosinas");
+            precio = sc.nextDouble();
+        }while(precio<=0);
+        return precio;
     }
 }

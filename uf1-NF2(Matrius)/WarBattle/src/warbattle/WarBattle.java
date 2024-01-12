@@ -20,12 +20,12 @@ public class WarBattle {
         char[][] tablero = new char[10][10];
         Scanner scanner = new Scanner(System.in);
         inicializarTablero(tablero);
-        mostrarTablero(tablero);
+        //mostrarTablero(tablero);
        
         colocarBarcos(tablero);
         
-        mostrarTablero(tablero);
-        System.exit(0);
+        mostrarTableroSinBarcos(tablero);
+       
         int opcion;
         boolean tocado=false;
         do {
@@ -38,11 +38,12 @@ public class WarBattle {
                     if(tocado)
                     {
                         System.out.println("TOCADO!");
-                        
+                        mostrarTableroSinBarcos(tablero);
                     }
                     else
                     {
                         System.out.println("AGUA");
+                        mostrarTableroSinBarcos(tablero);
                     }
                     break;
                 case 2:
@@ -58,10 +59,14 @@ public class WarBattle {
      * Inicializa el tablero con agua ('~').
      */
     private static void inicializarTablero(char[][] tablero) {
+        //int[] coordenadas = new int[2];
             for (int fila = 0; fila < tablero.length; fila++) 
             {
                 for (int col = 0; col < tablero[fila].length; col++) {
-                    tablero[fila][col] = '~';
+          //          coordenadas[0] = fila;
+          //          coordenadas[1] = col;
+          //          ponerMarca(coordenadas, tablero,'~' );
+                  tablero[fila][col] = '~';
                 }
             }
     }
@@ -73,16 +78,16 @@ public class WarBattle {
         final int barcosDe1=4,barcosDe2=3,barcosDe3=2,barcosDe4=1;
         
          // Colocar barcos de longitud 1
-        //colocarBarcosDeLongitud(1, barcosDe1, tablero);
+        colocarBarcosDeLongitud(1, barcosDe1, tablero);
 
         // Colocar barcos de longitud 2
         colocarBarcosDeLongitud(2, barcosDe2,tablero);
 
         // Colocar barcos de longitud 3
-        //colocarBarcosDeLongitud(0, 0, tablero);
+        colocarBarcosDeLongitud(3, barcosDe3, tablero);
 
         // Colocar barcos de longitud 4
-        //colocarBarcosDeLongitud(0, 0, tablero);
+        colocarBarcosDeLongitud(4, barcosDe4, tablero);
     }
 
     /**
@@ -107,6 +112,28 @@ public class WarBattle {
    
     }
 
+    private static void mostrarTableroSinBarcos(char[][] tablero) {
+        System.out.println("  0 1 2 3 4 5 6 7 8 9");
+         for (int fila = 0; fila < tablero.length; fila++) 
+            {
+                System.out.print(fila+" "); //al inici pinto el numero fila
+                for (int col = 0; col < tablero[fila].length; col++) {
+                    if (tablero[fila][col]=='B')
+                    {
+                        System.out.print("~"+" ");
+                    }
+                    else
+                    {
+                        System.out.print(tablero[fila][col]+" ");
+                    }
+                    
+                }
+                System.out.println("");
+            }
+   
+    }    
+    
+    
     /**
      * Muestra el menú de opciones.
      */
@@ -130,13 +157,15 @@ public class WarBattle {
         if(disparoTocadoAgua(coordenadas_tiro,tablero))
         {
             ponerMarca(coordenadas_tiro,tablero,'X'); //x es Tocado
+            return true;
         }
         else
         {
             ponerMarca(coordenadas_tiro,tablero,'O'); //O es Tocado
+            return false;
         }
         
-        return true;//cambiar a lo que sea correcto
+        
     }
     
      /**
@@ -214,17 +243,43 @@ public class WarBattle {
      * @return un array con 2 posiciones, la primera es la fila y la segunda la columna.
      */
     private static int[] pedirTiro(int fila_maxima, int columna_maxima) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Scanner sc = new Scanner(System.in);
+        int fila, columna;
+        do{
+        System.out.println("Pon la fila donde disparas");
+        fila = sc.nextInt();
+        System.out.println("Pon la columna donde disparas");
+        columna = sc.nextInt();
+        }while(fila>fila_maxima || columna > columna_maxima);
+        int[] coordenadas = new int[2]; //las dos posiciones a 0
+        coordenadas[0] = fila;
+        coordenadas[1] = columna;
+//          int[] coordenadas = new int[2]; //las dos posiciones a 0  
+//          System.out.println("Pon la fila y columna donde disparas");
+//          for (int i = 0; i < coordenadas.length; i++) {
+//              do{
+//                  coordenadas[i] = sc.nextInt();
+//              }while(coordenadas[i]>fila_maxima);
+//        }
+        
+        
+        return coordenadas;
     }
 
     /**
      * comprueba si en las coordenadas, hay algun barco
      * @param coordenadas_tiro, contiena la fila y columna del disparo
      * @param tablero 
-     * return true si es que si
+     * return true si es que la posición no es agua, false si es que no...
      */
     private static boolean disparoTocadoAgua(int[] coordenadas_tiro, char[][] tablero) {
-     return true;   
+       int fila = coordenadas_tiro[0];
+       int columna = coordenadas_tiro[1];
+       //return (tablero[fila][columna]!='~');
+       if (tablero[fila][columna]=='~')
+           return false;
+       else
+            return true;   
     }
 
     /**
@@ -234,7 +289,9 @@ public class WarBattle {
      * @param marca que se pondra en la coordenada especificada 
      */
     private static void ponerMarca(int[] coordenadas_tiro, char[][] tablero, char marca) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int fila = coordenadas_tiro[0];
+       int columna = coordenadas_tiro[1];
+       tablero[fila][columna] = marca;
     }
 
     private static boolean hayEspacioSuficiente(int fila, int columna, int longitud, int orientacion, char[][] tablero) {
