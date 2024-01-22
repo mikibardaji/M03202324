@@ -14,6 +14,9 @@ public class Got {
     int liquid; //liquid dentro del vaso
     String material; //material
 
+ 
+    
+    
     public Got()
     {
         this.capacity = 100;
