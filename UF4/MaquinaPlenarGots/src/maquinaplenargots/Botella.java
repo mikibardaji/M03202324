@@ -52,13 +52,13 @@ public class Botella {
 
 
 
-    public Botella(int capacity, int liquid)
-    {
-        this.capacity = capacity;
-        this.liquid = liquid;
-        this.material = "Cristal";
-        this.closed = true;
-    }
+//    public Botella(int capacity, int liquid)
+//    {
+//        this.capacity = capacity;
+//        this.liquid = liquid;
+//        this.material = "Cristal";
+//        this.closed = true;
+//    }
     
     public int getCapacity()
     {
@@ -110,8 +110,21 @@ public class Botella {
         this.closed = closed;
     }
 
-    public void setLiquid(int liquid) {
-        this.liquid = liquid;
+    /**
+     * cambia el contenido siempre que no supere la capacidad
+     * @param liquid a poner en la botella
+     * @return 0 si se ha cambiado -1 si el liquido supera la capacidad.
+     */
+    public int setLiquid(int liquid) {
+        if (this.capacity>= liquid)
+        {
+            this.liquid = liquid;
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     /**
@@ -187,6 +200,11 @@ public class Botella {
             final int sacado = 50;
             this.liquid  = this.liquid - sacado;
             return sacado;
+        }
+        
+        public boolean isBuit()
+        {
+            return this.liquid==0;
         }
     
 }
