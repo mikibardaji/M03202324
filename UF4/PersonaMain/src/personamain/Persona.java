@@ -10,17 +10,27 @@ package personamain;
  */
 public class Persona {
     // Atributos privados
-    private String dni;
+    private final String dni;
     private String nombre;
     private String apellidos;
     private int edad;
+    public static int num_personas; //global y comú (unica )
+    private static final int mayor_edad=18, jubilado = 65;
+    //a tots els objectes persona que es crein
 
+    public Persona() {
+        num_personas++;
+    }
+
+    
+    
     // Constructor
     public Persona(String dni, String nombre, String apellidos, int edad) {
-        this.dni = dni;
+        this.dni = dni; //no canvia mai
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.edad = edad;
+        num_personas++;
     }
 
     // Getters y setters
@@ -28,16 +38,18 @@ public class Persona {
         return dni;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
+
 
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (!nombre.isEmpty())
+        {
+            this.nombre = nombre;
+        }
+        
     }
 
     public String getApellidos() {
@@ -62,14 +74,47 @@ public class Persona {
     }
 
     public boolean esMayorEdad() {
-        return edad >= 18;
+        return edad >= mayor_edad;
     }
 
     public boolean esJubilado() {
-        return edad >= 65;
+        return edad >= jubilado;
     }
 
     public int diferenciaEdad(Persona p) {
+//        int resta;
+//        if (edad>= p.getEdad())
+//        {
+//            resta = edad - p.getEdad();
+//        }
+//        else
+//        {
+//            resta = p.getEdad() - edad;
+//        }
+//        return resta;
         return Math.abs(this.edad - p.edad);
     }    
+
+    public  int getNum_personas() {
+        return num_personas;
+    }
+    
+    /**
+     * te que medir 9 de longitud i la ultima pisiucio numerica
+     * @param dni
+     * @return 
+     */
+    public static boolean validarDNI(String dni)
+    {
+        if(dni.length()!=9)
+        {
+            return false;
+        }
+        else
+        {
+            char num = dni.charAt(dni.length()-1);
+            return Character.isDigit(num);
+        }
+    }
+    
 }

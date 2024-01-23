@@ -11,10 +11,13 @@ package rectangulomain;
 class Rectangulo {
     // Atributos privados
     private int x1, y1, x2, y2;
-
+//    Punto pinicial;
+//    Punto pfinal;
     // Constructor con validación de coordenadas
     public Rectangulo(int x1, int y1, int x2, int y2) {
         if (x1 < x2 && y1 < y2) {
+//            pinicial = new Punto(x1, y1);
+//            pfinal = new Punto(x2,y2);
             this.x1 = x1;
             this.y1 = y1;
             this.x2 = x2;
@@ -30,7 +33,10 @@ class Rectangulo {
     }
 
     public void setX1(int x1) {
-        this.x1 = x1;
+        if (x1<this.x2)
+        {
+            this.x1 = x1;
+        }
     }
 
     public int getY1() {
@@ -38,7 +44,10 @@ class Rectangulo {
     }
 
     public void setY1(int y1) {
+        if (y1<this.y2)
+        {
         this.y1 = y1;
+        }
     }
 
     public int getX2() {
@@ -46,7 +55,10 @@ class Rectangulo {
     }
 
     public void setX2(int x2) {
-        this.x2 = x2;
+       if (this.x1<x2)
+        {
+            this.x2 = x2;
+        }
     }
 
     public int getY2() {
@@ -54,7 +66,10 @@ class Rectangulo {
     }
 
     public void setY2(int y2) {
+        if (this.y1<y2)
+        {
         this.y2 = y2;
+        }
     }
 
     // Métodos adicionales
@@ -65,13 +80,13 @@ class Rectangulo {
     }
 
     public void setX1Y1(int x1, int y1) {
-        this.x1 = x1;
-        this.y1 = y1;
+        this.setX1(x1);
+        this.setY1(y1);
     }
 
     public void setX2Y2(int x2, int y2) {
-        this.x2 = x2;
-        this.y2 = y2;
+        this.setX2(x2);
+        this.setY2(y2);
     }
 
     public void setAll(int x1, int y1, int x2, int y2) {
@@ -87,12 +102,17 @@ class Rectangulo {
 
     private int getBase()
     {
-        return Math.abs(x2 - x1);
+        //return Math.abs(x2 - x1);
+        
+        return (x2 - x1);
     }
     
     private int getAltura()
     {
-        return Math.abs(y2 - y1);
+        //return Math.abs(y2 - y1);
+        //perque y2 sempre es mes gran qye y1 (setters tenen la 
+        //validació pertinent)
+        return (y2 - y1);
     }
     
     public int getPerimetro() {

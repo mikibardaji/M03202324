@@ -17,32 +17,32 @@ public class PersonaMain {
      */
     public static void main(String[] args) {
                 // Instancia de objetos Persona
-        Persona persona1 = new Persona("", "", "", 0);
-        Persona persona2 = new Persona("", "", "", 0);
+        Persona persona1 = new Persona("per1", "per1", "per1", 50);
+        Persona persona2 = new Persona("per2", "per2", "per2", 10);
 
         // Pedir datos por teclado
         Scanner scanner = new Scanner(System.in);
-
+        Persona persona3 = new Persona();
         System.out.println("Introduce los datos para la Persona 1:");
         System.out.print("DNI: ");
-        persona1.setDni(scanner.nextLine());
+        persona3.setDni(scanner.nextLine());
         System.out.print("Nombre: ");
-        persona1.setNombre(scanner.nextLine());
+        persona3.setNombre(scanner.nextLine());
         System.out.print("Apellidos: ");
-        persona1.setApellidos(scanner.nextLine());
+        persona3.setApellidos(scanner.nextLine());
         System.out.print("Edad: ");
-        persona1.setEdad(scanner.nextInt());
+        persona3.setEdad(scanner.nextInt());
         scanner.nextLine(); // Consumir la nueva línea pendiente
 
-        System.out.println("\nIntroduce los datos para la Persona 2:");
-        System.out.print("DNI: ");
-        persona2.setDni(scanner.nextLine());
-        System.out.print("Nombre: ");
-        persona2.setNombre(scanner.nextLine());
-        System.out.print("Apellidos: ");
-        persona2.setApellidos(scanner.nextLine());
-        System.out.print("Edad: ");
-        persona2.setEdad(scanner.nextInt());
+//        System.out.println("\nIntroduce los datos para la Persona 2:");
+//        System.out.print("DNI: ");
+//        persona2.setDni(scanner.nextLine());
+//        System.out.print("Nombre: ");
+//        persona2.setNombre(scanner.nextLine());
+//        System.out.print("Apellidos: ");
+//        persona2.setApellidos(scanner.nextLine());
+//        System.out.print("Edad: ");
+//        persona2.setEdad(scanner.nextInt());
 
         // Mostrar mensajes por pantalla
         System.out.println("\nInformación de la Persona 1:");
@@ -55,8 +55,14 @@ public class PersonaMain {
         System.out.println("Es mayor de edad: " + persona2.esMayorEdad());
         System.out.println("Es jubilado: " + persona2.esJubilado());
 
+        System.out.println("\nInformación de la Persona 3:");
+        persona3.imprime();
+        System.out.println("Es mayor de edad: " + persona3.esMayorEdad());
+        System.out.println("Es jubilado: " + persona3.esJubilado());
         // Calcular y mostrar la diferencia de edad
         System.out.println("\nDiferencia de edad entre Persona 1 y Persona 2: " + persona1.diferenciaEdad(persona2));
+        
+        System.out.println("Persona existentes " + persona2.getNum_personas());
     }
     
 }
