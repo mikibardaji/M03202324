@@ -9,15 +9,35 @@ package gestioncasa;
  * @author mabardaji
  */
 public class Estancia {
-    private String tipus;
+    private Lugar tipus;
     private double ample;
     private double alt;
+    //private double superficie;atribut es pot calcular amb els alttres
     private int num_finestres;
 
+    public Estancia()
+    {
+        
+    }
+    
+//    public Estancia(Lugar tipus, double ample, double alt, int num_finestres) 
+//    {
+//        if(metrosPositivo(ample) && metrosPositivo(alt))
+//        {
+//            this.tipus = tipus;
+//            this.ample = ample;
+//            this.alt = alt;
+//            this.num_finestres = num_finestres;
+//        }
+//        else
+//        {
+//            System.err.println("Medidas no positivas" + ample + "-" + alt);
+//        }    
+//    }
     public Estancia(String tipus, double ample, double alt, int num_finestres) {
         if(metrosPositivo(ample) && metrosPositivo(alt))
         {
-            this.tipus = tipus;
+            this.tipus = Lugar.valueOf(tipus);
             this.ample = ample;
             this.alt = alt;
             this.num_finestres = num_finestres;
@@ -45,6 +65,7 @@ public class Estancia {
         {
             this.ample = ample_nou;
             this.alt = alt_nou;
+            //superficie =this.ample * this.alt
             return 0;
         }
         else
@@ -56,6 +77,14 @@ public class Estancia {
     public double superficieEstancia()
     {
         return ample*alt;
+    }
+
+    public int getNum_finestres() {
+        return num_finestres;
+    }
+
+    public Lugar getTipus() {
+        return tipus;
     }
     
 }
