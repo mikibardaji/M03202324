@@ -42,16 +42,20 @@ public static void main(String[] args) {
                     break;
 
                 case 4:
-//                    // Amortizar dinero de la Hipoteca
-//                    System.out.print("Introduce la cantidad a amortizar: ");
-//                    double cantidadAmortizar = scanner.nextDouble();
-//                    double nuevaDeuda = miCasa.amortizarHipoteca(cantidadAmortizar);
-//                    if (nuevaDeuda != -1) {
-//                        System.out.println("Amortización realizada correctamente. Deuda restante: " + nuevaDeuda);
-//                    } else {
-//                        System.out.println("Error al amortizar. Verifica la cantidad introducida.");
-//                    }
-//                    break;
+                    // Amortizar dinero de la Hipoteca
+                    System.out.print("Introduce la cantidad a amortizar: ");
+                    double cantidadAmortizar = scanner.nextDouble();
+                    
+                    //Hipoteca mortgage_casa = miCasa.getMortgage();
+                    //mortgage_casa.amortizar(cantidadAmortizar);
+                    
+                    double nuevaDeuda = miCasa.AdelantarDineroHipoteca(cantidadAmortizar);
+                    if (nuevaDeuda != -1) {
+                        System.out.println("Amortización realizada correctamente. Deuda restante: " + nuevaDeuda);
+                    } else {
+                        System.out.println("Error al amortizar. Debe ser positiva");
+                    }
+                    break;
 
                 case 5:
                     // Mostrar superficie total de la casa

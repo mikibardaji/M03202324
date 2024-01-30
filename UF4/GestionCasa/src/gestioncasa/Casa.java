@@ -109,5 +109,17 @@ public class Casa {
     public Estancia[] getCompartimentos() {
         return compartimentos;
     }
+
+    public Hipoteca getMortgage() {
+        return mortgage;
+    }
+    
+    
+    
+    
+    public double AdelantarDineroHipoteca(double dinero)
+    {
+        return this.mortgage.amortizar(dinero);
+    }
     
 }
