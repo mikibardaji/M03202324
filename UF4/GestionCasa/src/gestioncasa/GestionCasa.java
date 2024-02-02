@@ -43,18 +43,8 @@ public static void main(String[] args) {
 
                 case 4:
                     // Amortizar dinero de la Hipoteca
-                    System.out.print("Introduce la cantidad a amortizar: ");
-                    double cantidadAmortizar = scanner.nextDouble();
+                    amortizacion();
                     
-                    //Hipoteca mortgage_casa = miCasa.getMortgage();
-                    //mortgage_casa.amortizar(cantidadAmortizar);
-                    
-                    double nuevaDeuda = miCasa.AdelantarDineroHipoteca(cantidadAmortizar);
-                    if (nuevaDeuda != -1) {
-                        System.out.println("Amortización realizada correctamente. Deuda restante: " + nuevaDeuda);
-                    } else {
-                        System.out.println("Error al amortizar. Debe ser positiva");
-                    }
                     break;
 
                 case 5:
@@ -140,6 +130,27 @@ public static void main(String[] args) {
             System.out.println(i + " "+ todas[i].getTipus().name());
             
         }
+    }
+
+    
+    /**
+     * 
+     * @param miCasa 
+     */
+    private static void amortizacion(Casa miCasa) {
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.print("Introduce la cantidad a amortizar: ");
+                    double cantidadAmortizar = scanner.nextDouble();
+                    
+                    //Hipoteca mortgage_casa = miCasa.getMortgage();
+                    //mortgage_casa.amortizar(cantidadAmortizar);
+                    
+                    double nuevaDeuda = miCasa.AdelantarDineroHipoteca(cantidadAmortizar);
+                    if (nuevaDeuda != -1) {
+                        System.out.println("Amortización realizada correctamente. Deuda restante: " + nuevaDeuda);
+                    } else {
+                        System.out.println("Error al amortizar. Debe ser positiva");
+                    }
     }
 
 

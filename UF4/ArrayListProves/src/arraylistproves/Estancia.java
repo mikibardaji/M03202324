@@ -4,6 +4,8 @@
  */
 package arraylistproves;
 
+import java.util.Objects;
+
 /**
  *
  * @author mabardaji
@@ -19,6 +21,13 @@ public class Estancia {
     {
         
     }
+
+    public Estancia(String tipus) {
+        this.tipus = tipus;
+    }
+    
+    
+    
     
 //    public Estancia(Lugar tipus, double ample, double alt, int num_finestres) 
 //    {
@@ -86,5 +95,58 @@ public class Estancia {
     public String getTipus() {
         return tipus;
     }
+
+    @Override
+    public String toString() {
+        //return "Estancia{" + "tipus=" + tipus + ", ample=" + ample + ", alt=" + alt + ", num_finestres=" + num_finestres + '}';
+        return "Nom habitació: " + tipus + ", superficie=" + this.superficieEstancia();
+    }
+
+
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) { //misma dirección memoria, es igual
+//            return true;
+//        }
+//        if (obj == null) { //si vale null no es igual
+//            return false;
+//        }
+//        if (!(obj instanceof Estancia)) {
+//            return false;
+//        }
+//        final Estancia other = (Estancia) obj;
+//        return this.tipus.equalsIgnoreCase(other.tipus);
+//    }
+
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Estancia)) {
+            return false;
+        }
+        final Estancia other = (Estancia) obj;
+        if (this.ample != other.ample) {
+            return false;
+        }
+        if (this.alt != other.alt) {
+            return false;
+        }
+        return this.tipus.equalsIgnoreCase(other.tipus);
+    }
+  
+    
+    
+    
+    
+    
+    
     
 }
