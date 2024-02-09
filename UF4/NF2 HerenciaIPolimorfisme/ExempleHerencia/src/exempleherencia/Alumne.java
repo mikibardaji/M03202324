@@ -52,4 +52,11 @@ public class Alumne extends Persona{
         //canvio para codificarlo
         this.DNI = "XXXXXXX" + ultimos_digitos;
     }
+
+//    @Override
+//    public String saludar() {
+//        return "Que tal bro! "; 
+//    }
+    
+    
 }

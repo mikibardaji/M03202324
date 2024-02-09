@@ -28,7 +28,8 @@ public class ExempleHerencia {
         
           System.out.println("Datos alumno "
         + student.getNombre() + "," + student.getDNI() + ", "
-        + student.getN_expediente() + ", " + student.getCurso());
+        + student.getN_expediente() + ", " + student.getCurso()
+          + " " + student.saludar());
         
         
         
@@ -39,7 +40,7 @@ public class ExempleHerencia {
         
         System.out.println("Datos Profesor " 
         + teacher.getNombre() + "," + teacher.getDNI() + ", "
-        + teacher.getCodi_professor());
+        + teacher.getCodi_professor() + "-" + teacher.saludar());
         
     }
     

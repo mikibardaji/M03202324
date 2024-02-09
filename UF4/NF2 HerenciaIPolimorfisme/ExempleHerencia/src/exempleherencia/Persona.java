@@ -21,6 +21,10 @@ public class Persona {
         this.telefono = telefono;
     }
 
+    /**
+     * devueelve nombre de la persona
+     * @return 
+     */
     public String getNombre() {
         return nombre;
     }
@@ -33,10 +37,25 @@ public class Persona {
         return direccion;
     }
 
+    /**
+     * devuelve telefono persona
+     * @return 
+     */
     public String getTelefono() {
         return telefono;
     }
     
+    //si es final, els fills no poden sobreescriure el 
+    //metode
+    public final String saludar()
+    {
+        return "Hola! "; 
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + '}';
+    }
     
     
 }
