@@ -22,7 +22,7 @@ public class Pokedex {
         Fuego arcanine = new Fuego("Arcanine",30);
         Fuego charizard = new Fuego("Charizard", 40);
         Dragon dyalga = new Dragon("Dyalga",45);
-        
+       
         ArrayList<Pokemon> bag = new ArrayList<>();
         
         bag.add(dyalga);

@@ -68,7 +68,10 @@ public abstract class Pokemon {
 
     
     //metodo OBLIGATORIO PARA TODOS LOS TIPOS DE POKEMON
-    public abstract int ataque();
+    public int ataque()
+    {
+        return 3;
+    };
     //no hi ha codi perque serà diferent per tots els tipus de pokemon
     
     @Override
