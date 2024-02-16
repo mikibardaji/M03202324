@@ -55,7 +55,7 @@ public class Astros {
 
     @Override
     public String toString() {
-        return "El Astro " + nombre + ", su radio es " + radio_ecuatorial + ", y tarda " + tiempo_rotacion + " en dar la vuelta sobre si mismo, y pesa " + masa + '}';
+        return "El Astro " + nombre + ", su radio es " + radio_ecuatorial + ", y tarda " + tiempo_rotacion + " en dar la vuelta sobre si mismo, y pesa " + masa ;
     }
     
     

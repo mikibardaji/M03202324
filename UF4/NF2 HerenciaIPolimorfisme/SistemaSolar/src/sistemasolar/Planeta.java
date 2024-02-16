@@ -46,7 +46,7 @@ public class Planeta extends Astros{
 
     @Override
     public String toString() {
-        return "Planeta" + this.getNombre() + " su distancia al sol=" + distancia_sol + ", orbita_sol=" + orbita_sol + ", tiene_satelite=" + tiene_satelite + '}';
+        return "Planeta " + this.getNombre() + " su distancia al sol=" + distancia_sol + ", orbita_sol=" + orbita_sol + ", tiene_satelite=" + tiene_satelite ;
     }
     
     
