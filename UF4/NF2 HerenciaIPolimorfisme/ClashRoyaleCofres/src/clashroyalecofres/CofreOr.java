@@ -12,7 +12,7 @@ public class CofreOr extends CofreGenerico{
 
     @Override
     protected void obrirCofre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         this.monedas = this.generarMonedas(420, 480);
     }
     
 }

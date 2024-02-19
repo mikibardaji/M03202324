@@ -14,7 +14,15 @@ public class ClashRoyaleCofres {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        /*CofreArgent silver = new CofreArgent();
+        silver.obrirCofre();
+        silver.mostrarCofre();*/
+       /* CofreOr gold = new CofreOr();
+        gold.obrirCofre();
+        gold.mostrarCofre();   */
+        CofreCorones crown = new CofreCorones();
+        crown.obrirCofre();
+        crown.mostrarCofre();  
     }
     
 }

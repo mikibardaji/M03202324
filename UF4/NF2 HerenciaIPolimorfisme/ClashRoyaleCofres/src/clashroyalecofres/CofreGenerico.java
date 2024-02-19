@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * @author mabardaji
  */
 public abstract class CofreGenerico {
-    private int monedas;
-    private ArrayList<Carta> lista;
+    protected int monedas;
+    protected ArrayList<Carta> lista;
 
     public CofreGenerico() {
-        lista = new ArrayList<>();
+        lista = new ArrayList<>(); //perque no sigui null
     }
     
     /**
@@ -26,11 +26,25 @@ public abstract class CofreGenerico {
     protected void mostrarCofre()
     {
         System.out.println("Numero monedas: " + monedas);
-        System.out.println("Cartas");
+        System.out.println("Cartas que tienes: ");
         for (Carta carta : lista) {
             System.out.println(carta);
         }
+        System.out.println("Cartas mostradas " + lista.size());
+    }
+
+    public int getMonedas() {
+        return monedas;
+    }
+
+    public ArrayList<Carta> getLista() {
+        return lista;
     }
     
-    
+    protected int generarMonedas(int min, int max)
+    {
+        int range = (max - min) + 1;
+        int aleatori = (int)(Math.random()*range)+min;
+        return aleatori;
+    }
 }
