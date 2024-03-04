@@ -51,7 +51,7 @@ public class ProvocadorExcepciones {
                     
  
             double divisio =  a/b;
-                               println("Resultat " + divisio);
+            System.out.println("Resultat " + divisio);
             Thread.sleep(100);
 
      
