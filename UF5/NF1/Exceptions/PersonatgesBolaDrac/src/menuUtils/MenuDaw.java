@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package testmenu;
+package menuUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,15 +91,55 @@ public class MenuDaw {
         do{
         System.out.print("Escoge opcion (1-" + items.size() + "): ");
          option = sc.nextInt();
-        }while(option <1 || option > items.size());
+        }while(option <1 || option > this.numberOptionsMenu());
         return option;
     }
     
     public int displayMenu()
     {
-        // mostrar el menu
-        //demanar la opció
-        //retornar
+        System.out.println(this.toString());
+        int opcio = this.chooseOption();
+
+        return opcio;
     }
     
+    /**
+     * Devuelve el numero de opciones que tiene el menú
+     * @return numero opciones
+     */
+    public int numberOptionsMenu()
+    {
+        return items.size();
+    }
+    
+    public String RemoveOptionByIndex(int indice) throws IndexOutOfBoundsException
+    {
+        String delete =  items.remove(indice);
+        if (!delete.isEmpty())
+        {
+            System.out.println("Opcion borrada " + delete);
+        }
+        else
+        {
+            System.out.println("Opcion no borrada");
+        }
+        return delete;
+    }
+    
+    public boolean Remove(String option_delete)
+    {
+        boolean delete = items.remove(option_delete);
+        if (delete)
+        {
+            System.out.println("Opcion borrada");
+        }
+        else
+        {
+            System.out.println("Opcion no borrada");
+        }
+        return delete;
+        
+        
+        
+    }
 }
