@@ -51,6 +51,13 @@ public class PersonatgesBolaDrac {
                 case 4:    //consultar per nom
                     findPersonPosition(Inventory);
                     break;            
+                case 5:    //consultar per nom
+                    removePersonPosition(Inventory);
+                    break;  
+                case 6:    //consultar per nom
+                    removePerson(Inventory);
+                    break;  
+
                 case 8: //Sortir
                     exit = true;
                     break;
@@ -72,7 +79,8 @@ public class PersonatgesBolaDrac {
             menu.addOption("Llistar personatges");
             menu.addOption("Consultar personatge nom");
             menu.addOption("Consultar personatge posició");
-            menu.addOption("Borrar personatge");
+            menu.addOption("Borrar personatge per posició");
+            menu.addOption("Borrar personatge per objecte");
             menu.addOption("Consultar persones superin x força d'atac");
             menu.addOption("Evolucionar personatge");
             menu.addOption("Sortir");
@@ -221,7 +229,7 @@ public class PersonatgesBolaDrac {
         
         
         DragonBallCharacter search = new DragonBallCharacter(name, evol);
-        
+        //els altres atributs no m'importen del search 
         DragonBallCharacter find = Inventory.findByPerson(search);
         if (find!= null)
         {
@@ -269,6 +277,24 @@ public class PersonatgesBolaDrac {
         System.out.println("             P    `. \\" + "      `%,  `.  ,'         /' .'     \\");
         System.out.println("            | --\"" + "  _\\||       `%,  `'          /.-'   .    )");
         //System.out.println("            |       `-.--..   `%..--\"\"\"\"\" + "\"--.'       \"-  |");
+    }
+
+    private static void removePersonPosition(Cataleg Inventory) {
+            //to do
+            //ask for the position
+            //call metod to remove in Cataleg by position (removeByPosition)
+            //if delete output delete
+            //if not output don't delete
+    }
+
+    private static void removePerson(Cataleg Inventory) {
+            //to do
+            //ask for all the atributs of equals of  DragonBallCharacter
+            //create a variable dragonball
+            //call metod to remove in Cataleg by Object (removeCharacter)
+            //if delete output delete
+            //if not output don't delete
+        
     }
     
 }

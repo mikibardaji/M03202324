@@ -128,6 +128,7 @@ public class Cataleg {
         //search te informat el name i evolution
         //que son els camps importants del Equals
         int posicio_objecte = personatges.indexOf(search); //gracies al equals 
+        
         //el pot trobar
         if (posicio_objecte!=-1)
         {
@@ -137,7 +138,20 @@ public class Cataleg {
         {
             return null;
         }
+        
     }
     
+    public DragonBallCharacter removeByPosition(int index)
+    {
+        // TO DO students
+        return null;
+    }
+    
+    
+    public boolean removeCharacter(DragonBallCharacter delete)
+    {
+        //TO DO by students
+        return true;
+    }
     
 }
