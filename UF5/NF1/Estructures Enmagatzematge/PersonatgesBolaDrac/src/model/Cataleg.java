@@ -67,4 +67,77 @@ public class Cataleg {
     {
         //mirar si tiene que ser void o devolver algo
     }
+    
+    
+    /**
+     * Busca el 1er personage que coincide por el nombre
+     * @param name del personaje a buscar
+     * @return DragonBallCharater encontrado , null si no existe
+     */
+    public List<DragonBallCharacter> findByName(String name)
+    {
+        List<DragonBallCharacter> list_name= new ArrayList<>();
+        for (DragonBallCharacter person : personatges) {
+            if (person.getNom().equalsIgnoreCase(name))
+            {
+                list_name.add(person); //en pot afegir més d'una
+            }
+        }
+        
+        if (list_name.size()>=0)
+        {
+            return list_name;
+        }
+        else
+            return null; //doesn't exist
+    }
+    
+    /**
+     * devuelve el personaje por su posicion en la lista
+     * @param pos 
+     * @return person de la posición o null si no es una posición correcta
+     */
+    public DragonBallCharacter findByPosition(int pos)
+    {
+        if (pos>=1 && pos <= personatges.size())
+        {
+            return personatges.get(pos-1);
+        }
+        else
+            return null;
+        
+    }
+    
+    /**
+     * Busca un personaje si existe en la lista
+     * @param person DragonballCharacter a encontrar
+     * @return DragonBallcharacter encontrado, -1 si no existre
+     */
+    public DragonBallCharacter findByDragonBall(DragonBallCharacter person)
+    {
+        int pos = personatges.indexOf(person);
+        if (pos!= -1)
+        {
+            return personatges.get(pos);
+        }
+        else
+            return null; //doesn't exist
+    }
+
+    public DragonBallCharacter findByPerson(DragonBallCharacter search) {
+        //search te informat el name i evolution
+        //que son els camps importants del Equals
+        int posicio_objecte = personatges.indexOf(search); //gracies al equals 
+        //el pot trobar
+        if (posicio_objecte!=-1)
+        {
+            return personatges.get(posicio_objecte);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    
 }

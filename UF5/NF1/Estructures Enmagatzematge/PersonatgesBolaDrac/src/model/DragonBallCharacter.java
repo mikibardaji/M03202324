@@ -29,6 +29,11 @@ public class DragonBallCharacter {
         this.terrestre = true;
     }
 
+    public DragonBallCharacter(String nom, Evolution nivell_evolucio) {
+        this.nom = nom;
+        this.nivell_evolucio = nivell_evolucio;
+    }
+
     public void setNom(String nom) {
         if (nom.length()>0)
         {

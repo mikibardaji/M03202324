@@ -6,8 +6,6 @@ package personatgesboladrac;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import menuUtils.MenuDaw;
 import menuUtils.OptionDuplicateException;
 import model.Cataleg;
@@ -47,7 +45,13 @@ public class PersonatgesBolaDrac {
                 case 2:    //consultar
                     ListAllPerson(Inventory);
                     break;
-                case 3: //Sortir
+                case 3:    //consultar per nom
+                    findPersonName(Inventory);
+                    break;                    
+                case 4:    //consultar per nom
+                    findPersonPosition(Inventory);
+                    break;            
+                case 8: //Sortir
                     exit = true;
                     break;
             } 
@@ -66,6 +70,11 @@ public class PersonatgesBolaDrac {
             //Afegir personatge
             menu.addOption("Afegir personatge");
             menu.addOption("Llistar personatges");
+            menu.addOption("Consultar personatge nom");
+            menu.addOption("Consultar personatge posició");
+            menu.addOption("Borrar personatge");
+            menu.addOption("Consultar persones superin x força d'atac");
+            menu.addOption("Evolucionar personatge");
             menu.addOption("Sortir");
         } catch (OptionDuplicateException ex) {
             System.out.println(ex.getMessage());
@@ -118,7 +127,7 @@ public class PersonatgesBolaDrac {
             et = false;
         }
         System.out.println ("Que evolucion:"
-                + "1-NEN, 2-SUPERGUERRER, 3-SUPERSAIYANULTRAINSTINTO");
+                + "1-NEN, 2-SUPERGUERRER, 3-SUPERSAIYAN, 4-ULTRAINSTINTO");
         int evolution = sc.nextInt();
         
         if (evolution==1)
@@ -129,9 +138,13 @@ public class PersonatgesBolaDrac {
         {
             nuevo = new DragonBallCharacter(nombre, atac, Evolution.SUPERGUERRER, et);
         }
+        else if (evolution==3)
+        {
+            nuevo = new DragonBallCharacter(nombre, atac, Evolution.SUPERSAIYAN, et);
+        }
         else
         {
-            nuevo = new DragonBallCharacter(nombre, atac, Evolution.SUPERSAIYANULTRAINSTINTO, et);
+            nuevo = new DragonBallCharacter(nombre, atac, Evolution.ULTRAINSTINTO, et);
         }
         return nuevo;
     }
@@ -146,10 +159,83 @@ public class PersonatgesBolaDrac {
             System.out.println("*******************");
         }
         //mostrar cuantos registros he enseñado 
-        System.out.println("Personajes mostrados: " + all.size());
-        
+        System.out.println("Personajes mostrados: " + all.size()); 
     }
 
+
+    private static void findPersonName(Cataleg Inventory) {
+        //interaccio usuari fitxer main
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Put the name of the character? : ");
+        String name = sc.nextLine();
+        
+        List<DragonBallCharacter> list_found = Inventory.findByName(name);
+        if (list_found!=null)
+        {
+            //interaccio usuari sortida pantalla main
+            for (DragonBallCharacter person : list_found) {
+                System.out.println(person);
+            }
+            System.out.println("Personajes encontrados " + list_found.size());
+        }
+        else
+        {
+            System.out.println("No existe ningún personaje con este nombre-->" + name);
+        }
+        
+        
+        
+//        if (found!=null)
+//        {
+//            System.out.println("Personaje encontrado");
+//            System.out.println(found);
+//        }
+    }
+
+    private static void findPersonPosition(Cataleg Inventory) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Put the position of the character? : ");
+        int pos = sc.nextInt();
+        DragonBallCharacter find = Inventory.findByPosition(pos); //model dades
+        if (find!= null)
+        {
+            System.out.println("Personaje encontrado");
+            System.out.println(find);
+        }
+        else
+        {
+            System.out.println("No existe ningún personaje en la posición -->" + pos);
+        }
+        
+    }
+    
+    private static void findPerson(Cataleg Inventory) {
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Put the name of the character? : ");
+        String name = sc.nextLine();
+        System.out.println("Put the evolution of the character? : ");
+        String evolution =sc.nextLine();
+        Evolution evol = Evolution.valueOf(evolution);
+        
+        
+        
+        DragonBallCharacter search = new DragonBallCharacter(name, evol);
+        
+        DragonBallCharacter find = Inventory.findByPerson(search);
+        if (find!= null)
+        {
+            System.out.println("Personaje encontrado");
+            System.out.println(find);
+        }
+        else
+        {
+            System.out.println("No existe ningún personaje en la posición -->" + search);
+        }
+        
+    }
+    
+    
     private static void pintarIntro() {
         System.out.println("              ___     -._");
         System.out.println("            `-. \"\"\"--._ `-.");

@@ -9,5 +9,5 @@ package model;
  * @author mabardaji
  */
 public enum Evolution {
-    NEN,  SUPERGUERRER, SUPERSAIYANULTRAINSTINTO
+    NEN,  SUPERGUERRER, SUPERSAIYAN,ULTRAINSTINTO
 }
