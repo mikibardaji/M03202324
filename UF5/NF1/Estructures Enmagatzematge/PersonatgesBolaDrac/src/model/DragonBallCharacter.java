@@ -93,6 +93,28 @@ public class DragonBallCharacter {
                 
        
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(nom);
+        sb.append("tiene una potencia de ataque ");
+        sb.append(potencia_atac).append("\n");
+        sb.append(" Su evolució es ");
+        sb.append(this.nivell_evolucio.name());
+        if (terrestre)
+        {
+            sb.append(" ha nacido en la tierra");
+        }
+        else
+        {
+            sb.append(" es extraterrestre");
+        }
+        
+        return sb.toString();
+        
+    }
     
     
     

@@ -45,10 +45,23 @@ public class Cataleg {
         return personatges.size();
     }
     
-    public List<DragonBallCharacter> getAllCharacter()
+    /**
+     * devuelve todos los persones introducidos
+     * @return personatges
+     */
+    public List<DragonBallCharacter> getAllCharacters()
     {
-        
+        return personatges;
     }
+    
+    public List<DragonBallCharacter> getAllTerrestreCharacters(boolean et)
+    {
+        List<DragonBallCharacter> terrestre = new ArrayList<>();
+        //recorrer personatges i si son el valor de et, afegirlos a terrestre
+        
+        
+        return terrestre;
+    } 
     
     public void removePersonatge(DragonBallCharacter delete_person)
     {

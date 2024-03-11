@@ -36,7 +36,7 @@ public class MenuDaw {
         if (!items.contains(option_menu))
         { //podria preguntar indexOf >0 existeix
             items.add(option_menu);
-            System.out.println("Opció afegida -> " + option_menu);
+            //System.out.println("Opció afegida -> " + option_menu);
         }
         else
         {
@@ -48,7 +48,7 @@ public class MenuDaw {
     public void addOptionsWithRepetition(String option_menu) throws OptionDuplicateException
     {
             items.add(option_menu);
-            System.out.println("Opció afegida -> " + option_menu);
+            //System.out.println("Opció afegida -> " + option_menu);
         
     }
     

@@ -4,10 +4,12 @@
  */
 package personatgesboladrac;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import menuUtils.MenuDaw;
+import menuUtils.OptionDuplicateException;
 import model.Cataleg;
 import model.DragonBallCharacter;
 import model.DuplicateCharacterException;
@@ -24,24 +26,35 @@ public class PersonatgesBolaDrac {
      */
     public static void main(String[] args) {
        //per provar el programa
+       pintarIntro();
        MenuDaw menu = new MenuDaw("Personatges Bola de drac");
        Cataleg Inventory = new Cataleg();
        int opcio=2;
-       // comentat addAllOptions(menu); CASA
+       boolean exit = false;
+       addAllOptions(menu); 
        
-       //mostrar el menu i escollir opcio CASA
        
        //tractar opcio escollida bucle fins que donis sortir no acabi CASA
-       switch(opcio)
+       do
        {
-           case 1: //afegir
-               addPersonCataleg(Inventory);
-               break;
-           case 2:    //consultar
-               ListAllPerson(Inventory);
-               break;
-           case 7: //Sortir
-       }
+           //mostrar el menu i escollir opcio CASA
+          opcio = menu.displayMenu();
+          switch(opcio)
+            {
+                case 1: //afegir
+                    addPersonCataleg(Inventory);
+                    break;
+                case 2:    //consultar
+                    ListAllPerson(Inventory);
+                    break;
+                case 3: //Sortir
+                    exit = true;
+                    break;
+            } 
+       }while(!exit);
+       
+       
+       
     }
 
     /**
@@ -49,7 +62,15 @@ public class PersonatgesBolaDrac {
      * @param menu 
      */
     private static void addAllOptions(MenuDaw menu) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            //Afegir personatge
+            menu.addOption("Afegir personatge");
+            menu.addOption("Llistar personatges");
+            menu.addOption("Sortir");
+        } catch (OptionDuplicateException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
     
@@ -66,7 +87,7 @@ public class PersonatgesBolaDrac {
             //añadir al catalogo Inventory
             if (Inventory.afegirCharacter(person))
             {
-                System.out.println("Personatge afegit  Total " + Inventory.getNumPersonatges());
+                System.out.println("Personatge afegit  Total " + Inventory.getNumCharacter());
             }
             else
             {
@@ -81,9 +102,9 @@ public class PersonatgesBolaDrac {
     private static DragonBallCharacter CreateDragonBallCharacter() {
         DragonBallCharacter nuevo;
         Scanner sc = new Scanner(System.in);
-        System.out.print("Pon nombre personaje");
+        System.out.print("Pon nombre personaje: ");
         String nombre = sc.nextLine();
-        System.out.print("Pon nivel ataque");
+        System.out.print("Pon nivel ataque: ");
         int atac = sc.nextInt();
         System.out.print("Es terrestre (1-Si/2-No)");
         int terrestre = sc.nextInt();
@@ -116,11 +137,52 @@ public class PersonatgesBolaDrac {
     }
 
     private static void ListAllPerson(Cataleg Inventory) {
-        //crida al metode que hem retorni tota la llista de personage
-        
+        //crida al metode que hem retorni tota la llista de personatges
+        List<DragonBallCharacter> all = Inventory.getAllCharacters();
         //recorrer toda la lista y mostrarla (tosTring Dragonball)
-        
+        int cont=1;
+        for (DragonBallCharacter character : all) {
+            System.out.println(cont + " " + character); //toString ja no fa falta res més
+            System.out.println("*******************");
+        }
         //mostrar cuantos registros he enseñado 
+        System.out.println("Personajes mostrados: " + all.size());
+        
+    }
+
+    private static void pintarIntro() {
+        System.out.println("              ___     -._");
+        System.out.println("            `-. \"\"\"--._ `-.");
+        System.out.println("               `.      \"-. `.");
+        System.out.println(" _____           `.       `\\");
+        System.out.println("`-.   \"\"\"---.._    \\        `\\");
+        System.out.println("   `-.         \"-.  \\         `\\");
+        System.out.println("      `.          `-.\\          \\_.-\"\"\"\"\"--._");
+        System.out.println("        `.           `                          \"-.    __....-------...");
+        System.out.println("          `.                                       `.    __....-------...");
+        System.out.println("            `.                                       `--\"\"\"\"\"---..._");
+        System.out.println("__...._       \"\"                                         `--\"\"\"\"\"---..._");
+        System.out.println("`-.      \"\"\"--`           /       ,-'/|     ,                   _..-\"" );
+        System.out.println("   `-.                 , /|     ,'  / |   ,'|    ,|        _..-\"");
+        System.out.println("      `.              /|| |    /   / |  ,'  |  ,' /        ----\"\"\"\"\"\"_`-");
+        System.out.println("        `.            ( \\  \\      |  | /   | ,'  //                 _.-\"");
+        System.out.println("          `.        .'-\\/\"" + "\"\\ |  '  | /  .-/'\"`'\\' //            _.-\"");
+        System.out.println("    /'`.____`-.  ,'" + "\"\\  ''''?-.V`.   |/ .'..-P''''  /\"`.     _.-\"");
+        System.out.println("   '(   `.-._\"" + "\"  ||(?|    /'" + "   >.\\  ' /.<   `\\    |P)||_..-\"" + "___.....---");
+        System.out.println("     `.   `. \"-._ \\ ('   |     `8      8'     |   `) /\"\"\"\"" + "    _\".\"\"");
+        System.out.println("       `.   `.   `." + "`.b|   `.__            __.'   |d.'  __...--\"");
+        System.out.println("         `.   `.   \".`-  .---      ,-.     ---.  -'.-\"" );
+        System.out.println("           `.   `.   \"\"|      -._      _.-      |\"");
+        System.out.println("             `.  .-\"`.  `.       `\"\"\"'       ,'");
+        System.out.println("               `/     `.. \"\"--..__    __..--\"\"");
+        System.out.println("                `.      /7.--|    \"\"\"\"    |--.__");
+        System.out.println("                  ..--\"| (  /'            `\\  ` \"\"--..");
+        System.out.println("               .-" + "\"      \\\\  |\"\"--.    .--\"\"|          \"-.");
+        System.out.println("              <.         \\\\  `.    -." + "    ,'       ,'     >");
+        System.out.println("             (P'`.        `%,  `.      ," + "         /,' .-\"\"?)");
+        System.out.println("             P    `. \\" + "      `%,  `.  ,'         /' .'     \\");
+        System.out.println("            | --\"" + "  _\\||       `%,  `'          /.-'   .    )");
+        //System.out.println("            |       `-.--..   `%..--\"\"\"\"\" + "\"--.'       \"-  |");
     }
     
 }
