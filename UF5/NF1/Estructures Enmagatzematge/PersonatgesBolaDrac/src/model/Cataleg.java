@@ -167,5 +167,36 @@ public class Cataleg {
     {
         return personatges.remove(delete); //funciona perque tinc el EQUALS IMPLEMENTAT
     }
+
+    /**
+    * cambia la fuerza del personaje escogido
+     * @param update personaje a cambiar
+     * @param fuerza nueva fuerza
+     * @return true si el cambio se ha efectuado false sino
+     */
+    public boolean updateAtack(DragonBallCharacter update, int fuerza) {
+        int posicion = personatges.indexOf(update); //
+        if (posicion!=-1)
+        {
+            personatges.get(posicion).setPotencia_atac(fuerza);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public List<DragonBallCharacter> findPersonByForze(int fuerza) {
+        List<DragonBallCharacter> seleccionados = new ArrayList<>();
+        
+        for (DragonBallCharacter personaje : personatges) {
+            if (personaje.getAtac()>=fuerza)
+            {
+                seleccionados.add(personaje);
+            }
+        }
+        return seleccionados;       
+    }
     
 }

@@ -70,7 +70,7 @@ public class DragonBallCharacter {
     {
         // multiplicar atac per el numero de evolutio
         //retornar el valor
-        return 0;
+        return potencia_atac;
     }
 
 

@@ -57,9 +57,15 @@ public class PersonatgesBolaDrac {
                     break;  
                 case 6:    //consultar per nom
                     removePerson(Inventory);
+                    break; 
+                case 7:    //consultar superiorr a fuerza
+                    findPersonMoreAttack(Inventory);
+                    break;                      
+                    
+                case 8:    //Modificar fo´ça d'atac
+                    updateAtacPerson(Inventory);
                     break;  
-
-                case 8: //Sortir
+                case 10: //Sortir
                     exit = true;
                     break;
             } 
@@ -83,6 +89,7 @@ public class PersonatgesBolaDrac {
             menu.addOption("Borrar personatge per posició");
             menu.addOption("Borrar personatge per objecte");
             menu.addOption("Consultar persones superin x força d'atac");
+            menu.addOption("Canviar força d'atac");
             menu.addOption("Evolucionar personatge");
             menu.addOption("Sortir");
         } catch (OptionDuplicateException ex) {
@@ -166,6 +173,7 @@ public class PersonatgesBolaDrac {
         for (DragonBallCharacter character : all) {
             System.out.println(cont + " " + character); //toString ja no fa falta res més
             System.out.println("*******************");
+            cont++; //numero de listado
         }
         //mostrar cuantos registros he enseñado 
         System.out.println("Personajes mostrados: " + all.size()); 
@@ -245,7 +253,96 @@ public class PersonatgesBolaDrac {
     }
     
     
-    private static void pintarIntro() {
+   
+
+    private static void removePersonPosition(Cataleg Inventory) {
+            //to do Vista
+            //ask for the position
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Cual es la posición del personaje a borrar");
+            int posic = sc.nextInt();
+            //call metod to remove in Cataleg by position (removeByPosition)
+            DragonBallCharacter delete = Inventory.removeByPosition(posic);
+            if (delete!=null)
+            {
+                System.out.println("Personaje borrado " + delete);
+            }
+   
+      else
+            {
+                System.out.println("Posicion no valida");
+            }
+            
+            //if delete output delete
+            //if not output don't delete
+    }
+
+    private static void removePerson(Cataleg Inventory) {
+            //to do
+            //ask for all the atributs of equals of  DragonBallCharacter
+            //create a variable dragonball
+            DragonBallCharacter delete = pedirDatosPersonajeBuscar();
+            //call metod to remove in Cataleg by Object (removeCharacter)
+            boolean deleteOk=Inventory.removeCharacter(delete);
+            if (deleteOk)
+            {
+                System.out.println("Borrado " + delete);
+            }
+            else
+            {
+                System.out.println("No existe " + delete);
+            }
+           
+        
+    }
+    
+    private static void introDadesProva(Cataleg Inventory) {
+        try{
+            Inventory.afegirCharacter(new DragonBallCharacter("goku",10,Evolution.NEN,true));
+            Inventory.afegirCharacter(new DragonBallCharacter("goku",50,Evolution.SUPERGUERRER,true));
+            Inventory.afegirCharacter(new DragonBallCharacter("Follet tortuga",15,Evolution.SUPERGUERRER,true));
+            Inventory.afegirCharacter(new DragonBallCharacter("Vegeta",20,Evolution.SUPERSAIYAN,false));
+            Inventory.afegirCharacter(new DragonBallCharacter("Krilin",25,Evolution.NEN,true));
+            Inventory.afegirCharacter(new DragonBallCharacter("Yamsha",10,Evolution.NEN,true));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+            
+            
+    }
+    
+    private static DragonBallCharacter pedirDatosPersonajeBuscar() {
+        DragonBallCharacter nuevo;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Put the name of the character? : ");
+        String name = sc.nextLine();
+        System.out.println ("Que evolucion:"
+                + "1-NEN, 2-SUPERGUERRER, 3-SUPERSAIYAN, 4-ULTRAINSTINTO");
+        int evolution = sc.nextInt();
+            
+        if (evolution==1)
+        {
+            nuevo = new DragonBallCharacter(name, Evolution.NEN);
+        }
+        else if (evolution==2)
+        {
+            nuevo = new DragonBallCharacter(name, Evolution.SUPERGUERRER);
+        }
+        else if (evolution==3)
+        {
+            nuevo = new DragonBallCharacter(name, Evolution.SUPERSAIYAN);
+        }
+        else
+        {
+            nuevo = new DragonBallCharacter(name, Evolution.ULTRAINSTINTO);
+        }
+        return nuevo;  
+    }
+    
+    
+     private static void pintarIntro() {
         System.out.println("              ___     -._");
         System.out.println("            `-. \"\"\"--._ `-.");
         System.out.println("               `.      \"-. `.");
@@ -280,89 +377,43 @@ public class PersonatgesBolaDrac {
         //System.out.println("            |       `-.--..   `%..--\"\"\"\"\" + "\"--.'       \"-  |");
     }
 
-    private static void removePersonPosition(Cataleg Inventory) {
-            //to do Vista
-            //ask for the position
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Cual es la posición del personaje a borrar");
-            int posic = sc.nextInt();
-            //call metod to remove in Cataleg by position (removeByPosition)
-            DragonBallCharacter delete = Inventory.removeByPosition(posic);
-            if (delete!=null)
-            {
-                System.out.println("Personaje borrado " + delete);
-            }
-   
-      else
-            {
-                System.out.println("Posicion no valida");
-            }
-            
-            //if delete output delete
-            //if not output don't delete
-    }
-
-    private static void removePerson(Cataleg Inventory) {
-            //to do
-            //ask for all the atributs of equals of  DragonBallCharacter
-            //create a variable dragonball
-            DragonBallCharacter delete = pedirDatosPersonajeBorrar();
-            //call metod to remove in Cataleg by Object (removeCharacter)
-            boolean deleteOk=Inventory.removeCharacter(delete);
-            if (deleteOk)
-            {
-                System.out.println("Borrado " + delete);
-            }
-            else
-            {
-                System.out.println("No existe " + delete);
-            }
-           
-        
-    }
-    
-    private static void introDadesProva(Cataleg Inventory) {
-        try{
-            Inventory.afegirCharacter(new DragonBallCharacter("goku",10,Evolution.NEN,true));
-            Inventory.afegirCharacter(new DragonBallCharacter("goku",50,Evolution.SUPERGUERRER,true));
-            Inventory.afegirCharacter(new DragonBallCharacter("Follet tortuga",15,Evolution.SUPERGUERRER,true));
-            Inventory.afegirCharacter(new DragonBallCharacter("Vegeta",20,Evolution.SUPERSAIYAN,false));
-            Inventory.afegirCharacter(new DragonBallCharacter("Krilin",25,Evolution.NEN,true));
-            Inventory.afegirCharacter(new DragonBallCharacter("Yamsha",10,Evolution.NEN,true));
-        }
-        catch(Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-            
-            
-    }
-    
-    private static DragonBallCharacter pedirDatosPersonajeBorrar() {
-        DragonBallCharacter nuevo;
+    /**
+     * canviar la força d'atac d'un personatge
+     * amb el valor que li diguis
+     * @param Inventory 
+     */ 
+     
+    private static void updateAtacPerson(Cataleg Inventory) {
+        DragonBallCharacter update = pedirDatosPersonajeBuscar();
         Scanner sc = new Scanner(System.in);
-            System.out.println("Put the name of the character? : ");
-            String name = sc.nextLine();
-            System.out.println ("Que evolucion:"
-                + "1-NEN, 2-SUPERGUERRER, 3-SUPERSAIYAN, 4-ULTRAINSTINTO");
-            int evolution = sc.nextInt();
-            
-        if (evolution==1)
+        System.out.println("cual es el nuevo valor de ataque");
+        int fuerza = sc.nextInt();
+        if (Inventory.updateAtack(update,fuerza))
         {
-            nuevo = new DragonBallCharacter(name, Evolution.NEN);
-        }
-        else if (evolution==2)
-        {
-            nuevo = new DragonBallCharacter(name, Evolution.SUPERGUERRER);
-        }
-        else if (evolution==3)
-        {
-            nuevo = new DragonBallCharacter(name, Evolution.SUPERSAIYAN);
+            System.out.println("Se ha cambiado la fuerza " + fuerza);
         }
         else
         {
-            nuevo = new DragonBallCharacter(name, Evolution.ULTRAINSTINTO);
+            System.out.println("Cambio no realizado personaje existente");
         }
-        return nuevo;  
+        
+
+    }
+
+    /**
+     * a partir de una fuerza pedida al usuario
+     * mostrara todos los personajes que superen esa fuerza
+     * @param Inventory 
+     */
+    private static void findPersonMoreAttack(Cataleg Inventory) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Cual es el valor de atauqne");
+        int fuerza = sc.nextInt();
+        List<DragonBallCharacter> selection=Inventory.findPersonByForze(fuerza);
+        
+        for (int i = 0; i < selection.size(); i++) {
+            System.out.println((i+1) + "-" + selection.get(i));
+        }
+        System.out.println("Personas mostradas" + selection.size());
     }
 }
