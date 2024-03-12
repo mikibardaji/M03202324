@@ -26,11 +26,12 @@ public class PersonatgesBolaDrac {
        //per provar el programa
        pintarIntro();
        MenuDaw menu = new MenuDaw("Personatges Bola de drac");
-       Cataleg Inventory = new Cataleg();
+       Cataleg Inventory = new Cataleg();// conté la colecció del model dades
        int opcio=2;
        boolean exit = false;
        addAllOptions(menu); 
        
+       introDadesProva(Inventory);
        
        //tractar opcio escollida bucle fins que donis sortir no acabi CASA
        do
@@ -102,7 +103,7 @@ public class PersonatgesBolaDrac {
         DragonBallCharacter person = CreateDragonBallCharacter();
         try {
             //añadir al catalogo Inventory
-            if (Inventory.afegirCharacter(person))
+            if (Inventory.afegirCharacter(person)) //C reate
             {
                 System.out.println("Personatge afegit  Total " + Inventory.getNumCharacter());
             }
@@ -280,9 +281,23 @@ public class PersonatgesBolaDrac {
     }
 
     private static void removePersonPosition(Cataleg Inventory) {
-            //to do
+            //to do Vista
             //ask for the position
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Cual es la posición del personaje a borrar");
+            int posic = sc.nextInt();
             //call metod to remove in Cataleg by position (removeByPosition)
+            DragonBallCharacter delete = Inventory.removeByPosition(posic);
+            if (delete!=null)
+            {
+                System.out.println("Personaje borrado " + delete);
+            }
+   
+      else
+            {
+                System.out.println("Posicion no valida");
+            }
+            
             //if delete output delete
             //if not output don't delete
     }
@@ -291,10 +306,63 @@ public class PersonatgesBolaDrac {
             //to do
             //ask for all the atributs of equals of  DragonBallCharacter
             //create a variable dragonball
+            DragonBallCharacter delete = pedirDatosPersonajeBorrar();
             //call metod to remove in Cataleg by Object (removeCharacter)
-            //if delete output delete
-            //if not output don't delete
+            boolean deleteOk=Inventory.removeCharacter(delete);
+            if (deleteOk)
+            {
+                System.out.println("Borrado " + delete);
+            }
+            else
+            {
+                System.out.println("No existe " + delete);
+            }
+           
         
     }
     
+    private static void introDadesProva(Cataleg Inventory) {
+        try{
+            Inventory.afegirCharacter(new DragonBallCharacter("goku",10,Evolution.NEN,true));
+            Inventory.afegirCharacter(new DragonBallCharacter("goku",50,Evolution.SUPERGUERRER,true));
+            Inventory.afegirCharacter(new DragonBallCharacter("Follet tortuga",15,Evolution.SUPERGUERRER,true));
+            Inventory.afegirCharacter(new DragonBallCharacter("Vegeta",20,Evolution.SUPERSAIYAN,false));
+            Inventory.afegirCharacter(new DragonBallCharacter("Krilin",25,Evolution.NEN,true));
+            Inventory.afegirCharacter(new DragonBallCharacter("Yamsha",10,Evolution.NEN,true));
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+            
+            
+    }
+    
+    private static DragonBallCharacter pedirDatosPersonajeBorrar() {
+        DragonBallCharacter nuevo;
+        Scanner sc = new Scanner(System.in);
+            System.out.println("Put the name of the character? : ");
+            String name = sc.nextLine();
+            System.out.println ("Que evolucion:"
+                + "1-NEN, 2-SUPERGUERRER, 3-SUPERSAIYAN, 4-ULTRAINSTINTO");
+            int evolution = sc.nextInt();
+            
+        if (evolution==1)
+        {
+            nuevo = new DragonBallCharacter(name, Evolution.NEN);
+        }
+        else if (evolution==2)
+        {
+            nuevo = new DragonBallCharacter(name, Evolution.SUPERGUERRER);
+        }
+        else if (evolution==3)
+        {
+            nuevo = new DragonBallCharacter(name, Evolution.SUPERSAIYAN);
+        }
+        else
+        {
+            nuevo = new DragonBallCharacter(name, Evolution.ULTRAINSTINTO);
+        }
+        return nuevo;  
+    }
 }

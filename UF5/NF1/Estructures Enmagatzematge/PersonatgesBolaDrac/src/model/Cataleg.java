@@ -141,17 +141,31 @@ public class Cataleg {
         
     }
     
+    /**
+     * borrar el personage de una posicion elegida
+     * @param index posicion a boorar
+     * @return DragonBallCharacter y si no esta en el indiece devuelve un null
+     */
+    
     public DragonBallCharacter removeByPosition(int index)
     {
-        // TO DO students
-        return null;
+        if (index >=1 && index <= personatges.size())
+        {
+            return personatges.remove(index-1);
+        }
+        else
+            return null;
+  
     }
     
-    
+    /**
+     * 
+     * @param delete
+     * @return true si lo ha borrado
+     */
     public boolean removeCharacter(DragonBallCharacter delete)
     {
-        //TO DO by students
-        return true;
+        return personatges.remove(delete); //funciona perque tinc el EQUALS IMPLEMENTAT
     }
     
 }

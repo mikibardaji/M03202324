@@ -104,9 +104,9 @@ public class DragonBallCharacter {
         StringBuilder sb = new StringBuilder();
         
         sb.append(nom);
-        sb.append("tiene una potencia de ataque ");
+        sb.append(" tiene una potencia de ataque ");
         sb.append(potencia_atac).append("\n");
-        sb.append(" Su evolució es ");
+        sb.append(" Su evolucion es ");
         sb.append(this.nivell_evolucio.name());
         if (terrestre)
         {
