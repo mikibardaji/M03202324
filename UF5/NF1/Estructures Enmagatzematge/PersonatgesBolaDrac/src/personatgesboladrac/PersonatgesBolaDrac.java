@@ -10,6 +10,9 @@ import menuUtils.MenuDaw;
 import menuUtils.OptionDuplicateException;
 import model.Cataleg;
 import model.DragonBallCharacter;
+import model.DragonBallSortByAtac;
+import model.DragonBallSortByNom;
+import model.DragonBallSortByTerrestre;
 import model.DuplicateCharacterException;
 import model.Evolution;
 
@@ -26,6 +29,8 @@ public class PersonatgesBolaDrac {
        //per provar el programa
        pintarIntro();
        MenuDaw menu = new MenuDaw("Personatges Bola de drac");
+//       String nom = Evolution.NEN.toString();
+//       int valor = Integer.parseInt(nom);
        Cataleg Inventory = new Cataleg();// conté la colecció del model dades
        int opcio=2;
        boolean exit = false;
@@ -43,8 +48,8 @@ public class PersonatgesBolaDrac {
                 case 1: //afegir
                     addPersonCataleg(Inventory);
                     break;
-                case 2:    //consultar
-                    ListAllPerson(Inventory);
+                case 2:    //nom 
+                    ListAllPersonByName(Inventory);
                     break;
                 case 3:    //consultar per nom
                     findPersonName(Inventory);
@@ -65,7 +70,14 @@ public class PersonatgesBolaDrac {
                 case 8:    //Modificar fo´ça d'atac
                     updateAtacPerson(Inventory);
                     break;  
-                case 10: //Sortir
+                case 10:    //llistar per força d'atac
+                    ListAllPersonByAtac(Inventory);
+                    break; 
+                case 11:    //llistar primer els terrestre
+                    ListAllPersonByTerrestre(Inventory);
+                    break; 
+
+                case 12: //Sortir
                     exit = true;
                     break;
             } 
@@ -83,7 +95,7 @@ public class PersonatgesBolaDrac {
         try {
             //Afegir personatge
             menu.addOption("Afegir personatge");
-            menu.addOption("Llistar personatges");
+            menu.addOption("Llistar personatges nom");
             menu.addOption("Consultar personatge nom");
             menu.addOption("Consultar personatge posició");
             menu.addOption("Borrar personatge per posició");
@@ -91,6 +103,8 @@ public class PersonatgesBolaDrac {
             menu.addOption("Consultar persones superin x força d'atac");
             menu.addOption("Canviar força d'atac");
             menu.addOption("Evolucionar personatge");
+            menu.addOption("Llistar personatges atac");
+            menu.addOption("Llistar personatges terrestres primer");
             menu.addOption("Sortir");
         } catch (OptionDuplicateException ex) {
             System.out.println(ex.getMessage());
@@ -165,16 +179,21 @@ public class PersonatgesBolaDrac {
         return nuevo;
     }
 
-    private static void ListAllPerson(Cataleg Inventory) {
+    private static void ListAllPersonByName(Cataleg Inventory) {
         //crida al metode que hem retorni tota la llista de personatges
         List<DragonBallCharacter> all = Inventory.getAllCharacters();
         //recorrer toda la lista y mostrarla (tosTring Dragonball)
         int cont=1;
+        //al cridar al sort necessito passar-li el criteri d'ordenació
+        //al fer new DragonBallSortByNom() li estic dient que agafi el compare d'aquesta classe 
+        //all.sort(new DragonBallSortByNom());
+        all.sort(new DragonBallSortByNom());
         for (DragonBallCharacter character : all) {
             System.out.println(cont + " " + character); //toString ja no fa falta res més
             System.out.println("*******************");
             cont++; //numero de listado
         }
+
         //mostrar cuantos registros he enseñado 
         System.out.println("Personajes mostrados: " + all.size()); 
     }
@@ -415,5 +434,31 @@ public class PersonatgesBolaDrac {
             System.out.println((i+1) + "-" + selection.get(i));
         }
         System.out.println("Personas mostradas" + selection.size());
+    }
+
+    private static void ListAllPersonByAtac(Cataleg Inventory) {
+         
+        List<DragonBallCharacter> all = Inventory.getAllCharacters();
+        int cont=1;
+        all.sort(new DragonBallSortByAtac());
+        for (DragonBallCharacter character : all) {
+            System.out.println(cont + " " + character); //toString ja no fa falta res més
+            System.out.println("*******************");
+            cont++; //numero de listado
+        } 
+        System.out.println("Personajes mostrados: " + all.size()); 
+    }
+    
+    private static void ListAllPersonByTerrestre(Cataleg Inventory) {
+         
+        List<DragonBallCharacter> all = Inventory.getAllCharacters();
+        int cont=1;
+        all.sort(new DragonBallSortByTerrestre());
+        for (DragonBallCharacter character : all) {
+            System.out.println(cont + " " + character); //toString ja no fa falta res més
+            System.out.println("*******************");
+            cont++; //numero de listado
+        } 
+        System.out.println("Personajes mostrados: " + all.size()); 
     }
 }
