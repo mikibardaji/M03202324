@@ -4,6 +4,8 @@
  */
 package setproves;
 
+import java.util.Objects;
+
 /**
  *
  * @author mabardaji
@@ -60,6 +62,26 @@ public class Persona {
         
         return sb.toString();
     }
+
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Persona)) {
+            return false;
+        }
+//        return true;
+        final Persona other = (Persona) obj;
+        return this.getNom().toUpperCase().equalsIgnoreCase(other.getNom().toUpperCase());
+    }
+
+
     
     
     

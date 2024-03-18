@@ -6,7 +6,6 @@ package setproves;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  *
@@ -19,19 +18,31 @@ public class SetProves {
      */
     public static void main(String[] args) {
        //crear 2 conjunts de persones
+       Set<Persona> DAW1 = new LinkedHashSet<>();
+       Set<Persona> DAM =  new LinkedHashSet<>();
        //al primer afegiu 3 persones
+       DAW1.add(new Persona("Josep", 0, true));
+       DAW1.add(new Persona("Alvaro", 0, true));
+       DAW1.add(new Persona("Ahsan", 0, true));
        //al segon afegiu 3 mes, una de les quals ha de ser una del primer grup
+       DAM.add(new Persona("Josep", 0, true));
+       DAM.add(new Persona("AdrianD", 0, true));
+       DAM.add(new Persona("Alvaro", 0, true));
        //les persones son iguals si tenen el mateix nom
        //union
-       
-       
+        System.out.println("Tots els estudiants");
+        DAM.addAll(DAW1);
+        for (Persona people : DAM) {
+            System.out.println(people.getNom());
+        }
+        System.exit(0);
        //interseccion duplicats
         
         
        //minus retainAll
        
        
-       pruebasSetInteger(); 
+       //pruebasSetInteger(); 
         
     }
 
