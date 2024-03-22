@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="UF2">
-            <file>file:/C:/Users/mabardaji/Documents/NetBeansProjects/UF5/NF1/Exceptions/CanviDivisa/src/canvidivisa/CanviDivisa.java</file>
+            <file>file:/C:/Users/mabardaji/Documents/NetBeansProjects/UF5/NF1/Estructures%20Enmagatzematge/CanviDivisa/src/Model/Divisa.java</file>
+            <file>file:/C:/Users/mabardaji/Documents/NetBeansProjects/UF5/NF1/Estructures%20Enmagatzematge/CanviDivisa/src/menuUtils/MenuDaw.java</file>
+            <file>file:/C:/Users/mabardaji/Documents/NetBeansProjects/UF5/NF1/Estructures%20Enmagatzematge/CanviDivisa/src/Model/DAODivisa.java</file>
+            <file>file:/C:/Users/mabardaji/Documents/NetBeansProjects/UF5/NF1/Estructures%20Enmagatzematge/CanviDivisa/src/Model/MaxDivisiException.java</file>
+            <file>file:/C:/Users/mabardaji/Documents/NetBeansProjects/UF5/NF1/Estructures%20Enmagatzematge/CanviDivisa/src/canvidivisa/CanviDivisa.java</file>
         </group>
     </open-files>
 </project-private>

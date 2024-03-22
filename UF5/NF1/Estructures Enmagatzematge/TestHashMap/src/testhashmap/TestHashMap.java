@@ -27,8 +27,7 @@ public class TestHashMap {
        prefijos.put("MEX", 52);
        prefijos.put("ECU", 593);
        
-       
-        System.out.println("items puestos " + prefijos.size());
+       System.out.println("items puestos " + prefijos.size());
         
         System.out.println("Ecuador tiene el codigo " + prefijos.get("ECU"));
         System.out.println("Ecuador tiene el codigo " + prefijos.get("XXX"));
@@ -40,7 +39,7 @@ public class TestHashMap {
             System.out.println(clave);
         }
         
-        System.out.println("Recorrer tot el hashmap y anar recuperant clave(String) y valor(Integer");
+        System.out.println("Recorrer tot el hashmap y anar recuperant clave(String) y valor(Integer)");
         for(Map.Entry<String,Integer> entrada: prefijos.entrySet())
         {
             System.out.println("Clave[" + entrada.getKey() + "] = " +entrada.getValue());
