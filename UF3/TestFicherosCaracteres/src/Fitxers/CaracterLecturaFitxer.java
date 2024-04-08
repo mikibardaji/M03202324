@@ -39,6 +39,17 @@ public class CaracterLecturaFitxer {
         }  
     }
     
+    /**
+     * 
+     * @return el siguiente caracter en codigo ascii, o -1 si es final de fichero
+     */
+    public int leerCaracterCodigoAscii() throws IOException
+    {
+         int codigo_ascii = fichero.read();
+         return codigo_ascii;
+    }
+    
+    
     public void cerrarFicheros() throws IOException
     {
         fichero.close();
