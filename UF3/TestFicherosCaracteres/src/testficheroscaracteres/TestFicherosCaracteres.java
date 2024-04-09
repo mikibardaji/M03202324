@@ -26,7 +26,8 @@ public class TestFicherosCaracteres {
         
         //copia_fichero_leerCaracter();
         copia_fichero_leerCaracterCodigoAscii();
-        concatenar2Archivos();
+        concatFicherosExercici5();
+        concatenarFicherosLetraALetraExercici6();
         
     }
 
@@ -96,7 +97,7 @@ public class TestFicherosCaracteres {
 
     }
     
-    private static void concatFicheros()  {
+    private static void concatFicherosExercici5()  {
        
          try {
              
@@ -157,6 +158,69 @@ public class TestFicherosCaracteres {
        
        
        
+    }
+
+    private static void concatenarFicherosLetraALetraExercici6()
+    {
+        try {
+            //declarar ficheros
+            //lectura o escritura
+            CaracterLecturaFitxer fitxer1 = new CaracterLecturaFitxer("ficheros/exer6f1.txt");
+            CaracterLecturaFitxer fitxer2 = new CaracterLecturaFitxer("ficheros/exer6f2.txt");
+            CaracterEscrituraFitxer sortida = new CaracterEscrituraFitxer("ficheros/exer6sortida.txt",true);
+            int lectf1=0,lectf2=0;
+            
+            while (lectf1!=-1 && lectf2!=-1) //no han llegado final ninguno
+            {
+                lectf1 = fitxer1.leerCaracterCodigoAscii();
+                if (lectf1!=-1)
+                {
+                    System.out.println("Escribo" + (char) lectf1);
+                   sortida.escribirCaracter(lectf1);//escribo
+                }
+                lectf2 = fitxer2.leerCaracterCodigoAscii();
+                if (lectf2!=-1)
+                {
+                    System.out.println("Escribo" + (char) lectf2);
+                   sortida.escribirCaracter(lectf2);//escribo
+                }
+            }
+            //termina el primer fichero
+            if (lectf1==-1)
+            {
+               while(lectf2!=-1) //escribo solo el segundo
+               {
+                  System.out.println("solo fichero 2 " + (char) lectf2); 
+                  lectf2 = fitxer2.leerCaracterCodigoAscii();
+                if (lectf2!=-1)
+                {
+                   sortida.escribirCaracter(lectf2);//escribo
+                } 
+               }
+            }
+            if (lectf2==-1)//segundo terminado
+            {
+               while(lectf1!=-1) //escribo solo el primero
+               {
+                  lectf1 = fitxer1.leerCaracterCodigoAscii();
+                if (lectf1!=-1)
+                {
+                   System.out.println("solo fichero 1 " + (char) lectf1); 
+                   sortida.escribirCaracter(lectf1);//escribo
+                } 
+               }
+            }
+            fitxer1.cerrarFicheros();
+            fitxer2.cerrarFicheros();
+            sortida.cerrarFicheros();
+            
+        } catch (FileNotFoundException ex) {
+            System.out.println("fichero no encontrado" + ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println("Error escritura" + ex.getMessage());
+            ex.printStackTrace();
+        }
     }
     
 }

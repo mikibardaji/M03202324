@@ -20,7 +20,12 @@ public class CaracterEscrituraFitxer {
     public CaracterEscrituraFitxer(String ruta_relativa) throws IOException {
         //deixa preparat el arxiu
         ruta_archivo = new File(ruta_relativa);
-        fichero = new FileWriter(ruta_archivo);        
+        fichero = new FileWriter(ruta_archivo);    //escribo machacando lo que hay     
+    }
+    
+    public CaracterEscrituraFitxer(String ruta_relativa, boolean no_machacar) throws IOException {
+        ruta_archivo = new File(ruta_relativa);
+        fichero = new FileWriter(ruta_archivo, no_machacar);
     }
     
     public void cerrarFicheros() throws IOException
