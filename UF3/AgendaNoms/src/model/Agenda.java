@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author mabardaji
  */
-public class Agenda {
+public class Agenda { //DAO
     /*atribut*/
     List<String> listado;
     /*metodes*/
@@ -22,11 +22,16 @@ public class Agenda {
     
     public boolean afegirNom(String new_name)
     {
-        //TO DO
-        //mirar que no existeixi
-        // si existeix retornar false
-        //sino afegir i retornar
-        return true;
+        if (!listado.contains(new_name))
+        {
+            listado.add(new_name);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 
     public List<String> getListado() {
@@ -35,4 +40,8 @@ public class Agenda {
     
     
     //TO DO Fa falta el setter?
+
+    public void setListado(List<String> listado) {
+        this.listado = listado;
+    }
 }

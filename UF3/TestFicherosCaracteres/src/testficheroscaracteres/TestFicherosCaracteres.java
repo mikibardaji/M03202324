@@ -4,6 +4,8 @@
  */
 package testficheroscaracteres;
 
+import Fitxers.ByteEscrituraFitxer;
+import Fitxers.ByteLecturaFitxer;
 import Fitxers.CaracterEscrituraFitxer;
 import Fitxers.CaracterLecturaFitxer;
 import Fitxers.FinalFicheroException;
@@ -25,9 +27,10 @@ public class TestFicherosCaracteres {
         
         
         //copia_fichero_leerCaracter();
-        copia_fichero_leerCaracterCodigoAscii();
-        concatFicherosExercici5();
-        concatenarFicherosLetraALetraExercici6();
+        //copia_fichero_leerCaracterCodigoAscii();
+        //concatFicherosExercici5();
+        //concatenarFicherosLetraALetraExercici6();
+        hacerCopiaFoto();
         
     }
 
@@ -221,6 +224,41 @@ public class TestFicherosCaracteres {
             System.out.println("Error escritura" + ex.getMessage());
             ex.printStackTrace();
         }
+    }
+
+    private static void hacerCopiaFoto() {
+        try {
+            ByteLecturaFitxer entrada = new ByteLecturaFitxer("ficheros/foto.jpg");
+            ByteEscrituraFitxer sortida = new ByteEscrituraFitxer("ficheros/copia_foto.jpg");
+            int leido;
+            //copiar byte a byte y escriure a la sortida
+            do
+            {
+                leido = entrada.leerByte();
+                if (leido!=-1)
+                {
+                    sortida.escribirByte(leido);
+                }
+                
+            }while(leido!=-1);
+            
+            
+            //tancar fitxers
+            entrada.cerrarFicheros();
+            sortida.cerrarFicheros();
+            //informar usuario
+            System.out.println("Copia hecha");
+            
+            
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        
+        
     }
     
 }

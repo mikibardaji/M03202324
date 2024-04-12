@@ -4,6 +4,15 @@
  */
 package AgendaNoms;
 
+import Fitxers.LineaEscrituraFitxer;
+import Fitxers.LineaLecturaFitxer;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import menuUtils.MenuDaw;
 import menuUtils.OptionDuplicateException;
 import model.Agenda;
@@ -36,20 +45,21 @@ public class AgendaNomsMain {
           switch(opcio)
             {
                 case 1:
-                    carregarFitxer();
+                    carregarFitxer(todos);
                     break;
                 case 2:  
-                    afegirNom();
+                    afegirNom(todos);
                     break;
                 case 3:  
-                    llistarNoms();
+                    llistarNoms(todos);
                     break;                    
                 case 4:    
-                    gravarFitxer();
+                    gravarFitxer(todos);
                     break;            
-                
-
-                case 5: //Sortir
+                case 5:
+                    gravarNombresNoExistentesEntrada(todos);
+                    break;
+                case 6: //Sortir
                     exit = true;
                     break;
             } 
@@ -69,6 +79,7 @@ public class AgendaNomsMain {
             menu.addOption("Donar d'alta nom");
             menu.addOption("Llistar noms");
             menu.addOption("Guardar fitxers"); 
+            menu.addOption("Guardar nombres intrudocidos y no existnetes en el fichero de entrada"); 
             menu.addOption("Sortir");
         } catch (OptionDuplicateException ex) {
             System.out.println(ex.getMessage());
@@ -80,26 +91,145 @@ public class AgendaNomsMain {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private static void carregarFitxer() {
+    /**
+     * lee de un fichero de entrada todos los nombres existentes
+     * y los carga en el DAO (agenda)
+     * @param todos 
+     */
+    private static void carregarFitxer(Agenda todos) {
+        
+        try {
             //leer el fichero de datos
+            LineaLecturaFitxer entry_file = new LineaLecturaFitxer("ficheros/nombres.txt");
             //acumular nombres en una lista
+            
+            //opcio 1 comentada
+            //carregarUtilitzantList(entry_file, todos);
+            
+            String nombre_leido;
+            //bucle i  tinc que pensar la condició
+            do{
+                nombre_leido = entry_file.leerLinea();
+                if (nombre_leido!=null)
+                {
+                        if(!todos.afegirNom(nombre_leido))
+                        {
+                            System.out.println("Nombre repetido " + nombre_leido + " no cargado");
+                        }
+                }
+            }while(nombre_leido!=null);
+            
+            //fi bucle
+           // entry_file.cerrarFicheros();
             //pasarle la lista al dao
+           // todos.setListado(names_file);
+            //informar usuario
+            System.out.println("Fichero cargado  con "
+            + todos.getListado().size());
+            
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
             
     }
 
-    private static void afegirNom() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private static void afegirNom(Agenda todos) {
+        //interaccio usuari si es necessari
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Pon nombre a añadir");
+        String nuevo_nombre = sc.nextLine();
+        //interaccio dao
+        boolean insertado = todos.afegirNom(nuevo_nombre);
+        
+        //interacció usuari (si es obligatori)
+        if(insertado)
+        {
+            System.out.println("Nombre añadido...");
+        }
+        else
+        {
+            System.out.println("Nombre repetido");
+        }
     }
 
-    private static void llistarNoms() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private static void llistarNoms(Agenda todos) {
+        //interaccio usuari (si es necessari)
+        
+        //interaccio amb DAO
+        List<String> nombres = todos.getListado();
+        //interacció o mostrar resultat a usuari
+        int cont=1;
+        for (String name : nombres) {
+            System.out.println(cont + "-" + name);
+            cont++;
+        }
+        System.out.println("Nombres listados " + nombres.size());
     }
 
-    private static void gravarFitxer() {
-        //pido colection DAO (Agenda)
-        //recorro colection y grabo cada elemento 
-        //en el fichero
+    private static void gravarFitxer(Agenda todos) {
+        try {
+            //pido colection DAO (Agenda)
+            List<String> nombres_grabar = todos.getListado();
+            //declaro fichero de escritura
+            LineaEscrituraFitxer output_file = new LineaEscrituraFitxer("ficheros/nombres.txt");
+            //recorro colection y grabo cada elemento en el fichero de salida
+            for (String nombre_leido : nombres_grabar) {
+                //gravar en la salida
+                output_file.escribirLinea(nombre_leido+"\n");
+            }
+            //en el fichero
+            output_file.cerrarFicheros();
+            //cierro fichero
+            System.out.println("Grabados en el fichero de salida"
+            + nombres_grabar.size());
+            //informo usuari
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
 
+    }
+
+    private static void carregarUtilitzantList(LineaLecturaFitxer entry_file, Agenda todos) {
+            try{
+            List<String> names_file = new ArrayList();
+            String nombre_leido;
+            //bucle i  tinc que pensar la condició
+            do{
+                
+                    nombre_leido = entry_file.leerLinea();
+                    if (nombre_leido!=null)
+                    {
+                        names_file.add(nombre_leido);
+                    }
+               
+            }while(nombre_leido!=null);
+            
+             } catch (IOException ex) {
+                    Logger.getLogger(AgendaNomsMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+    }
+
+    private static void gravarNombresNoExistentesEntrada(Agenda todos) {
+        //opcio mas facil
+        
+        //leer todo el fichero de entrada y cargarlo en una coleccion
+        
+        
+        //leer nombre a nombre en la agenda, y mirar si esta en la coleccion del fichero
+        
+        //si esta, no lo grabo en la salida
+        
+        //si no esta, lo grabo
+        
+        //cerrar ficheros
+        
+        //informar usuario
     }
 
     
