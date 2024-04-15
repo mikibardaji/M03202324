@@ -15,11 +15,12 @@ import java.io.IOException;
  */
 public class ByteEscrituraFitxer {
     //2 atributs
-     File ruta_archivo;
+    File ruta_archivo;
     FileOutputStream fichero_escritura;
 
     public ByteEscrituraFitxer(String ruta_relativa) throws FileNotFoundException {
         ruta_archivo = new File(ruta_relativa);
+        System.out.println("ruta --> " + ruta_archivo.getAbsolutePath());
         fichero_escritura = new FileOutputStream(ruta_archivo);
     }
     

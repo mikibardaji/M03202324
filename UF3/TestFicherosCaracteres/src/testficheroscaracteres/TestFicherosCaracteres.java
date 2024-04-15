@@ -8,7 +8,10 @@ import Fitxers.ByteEscrituraFitxer;
 import Fitxers.ByteLecturaFitxer;
 import Fitxers.CaracterEscrituraFitxer;
 import Fitxers.CaracterLecturaFitxer;
+import Fitxers.EscrituraSerializadaPrimitius;
 import Fitxers.FinalFicheroException;
+import Fitxers.LecturaSerializadaPrimitius;
+import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -30,7 +33,9 @@ public class TestFicherosCaracteres {
         //copia_fichero_leerCaracterCodigoAscii();
         //concatFicherosExercici5();
         //concatenarFicherosLetraALetraExercici6();
-        hacerCopiaFoto();
+        //hacerCopiaFoto();
+        grabarDatosPrimitivos();
+        leerDatosPrimitivos();
         
     }
 
@@ -259,6 +264,64 @@ public class TestFicherosCaracteres {
         }
         
         
+    }
+
+    private static void grabarDatosPrimitivos() {
+        try {
+            String linea = "HOLAxccdcccv";
+            int num = 133;
+            boolean cierto = true;
+            
+            EscrituraSerializadaPrimitius escritura =
+                    new EscrituraSerializadaPrimitius("ficheros/datos.txt");
+        
+            escritura.escribirInt(num);
+            escritura.escribirString(linea);
+            escritura.escribirBoolean(cierto);
+
+            System.out.println("Datos guardadados");
+            escritura.cerrarFicheros();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+  
+    }
+
+    private static void leerDatosPrimitivos() {
+        LecturaSerializadaPrimitius leer=null;
+        try {
+            leer =
+                    new LecturaSerializadaPrimitius("ficheros/datos.txt");
+            
+            int num = leer.leerInt();
+            System.out.println(num);
+            String frase = leer.leerLinea();
+            System.out.println(frase);
+            boolean cierto = leer.leerBoolean();
+            System.out.println(cierto);
+            num = leer.leerInt();
+            leer.cerrarFicheros();
+        } catch (EOFException ex)
+        {
+            System.out.println("Final fichero");
+            try {
+                leer.cerrarFicheros();
+            } catch (IOException ex1) {
+                Logger.getLogger(TestFicherosCaracteres.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            
+        } 
+        catch (FileNotFoundException ex) {
+           System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex) {
+           System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } 
     }
     
 }

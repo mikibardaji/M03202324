@@ -216,20 +216,66 @@ public class AgendaNomsMain {
     }
 
     private static void gravarNombresNoExistentesEntrada(Agenda todos) {
-        //opcio mas facil
-        
-        //leer todo el fichero de entrada y cargarlo en una coleccion
-        
-        
-        //leer nombre a nombre en la agenda, y mirar si esta en la coleccion del fichero
-        
-        //si esta, no lo grabo en la salida
-        
-        //si no esta, lo grabo
-        
-        //cerrar ficheros
-        
-        //informar usuario
+        try {
+            //opcio mas facil
+            
+            //leer todo el fichero de entrada y cargarlo en una coleccion
+            List<String> nombres_fichero = leerFicheroEntrada(); //fichero de entrada
+            
+            //leer nombre a nombre en la agenda, y mirar si esta en la coleccion del fichero
+            LineaEscrituraFitxer salida = new LineaEscrituraFitxer("ficheros/nombres_sesion.txt");
+            //si esta, no lo grabo en la salida
+            int cont=0;
+            for (String nombre : todos.getListado()) {
+                if (!nombres_fichero.contains(nombre))
+                {
+                    salida.escribirLinea(nombre);
+                    cont++;
+                }
+            }
+            //informar usuario
+            System.out.println("Nombres guardados ... " + cont );
+            //cerrar ficheros
+            salida.cerrarFicheros();
+
+        } catch (IOException ex) {
+            Logger.getLogger(AgendaNomsMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static List<String> leerFicheroEntrada() {
+        List<String> fichero_entrada=new ArrayList();
+         try {
+            //leer el fichero de datos
+            LineaLecturaFitxer entry_file = new LineaLecturaFitxer("ficheros/nombres.txt");
+            //acumular nombres en una lista
+            
+            //opcio 1 comentada
+            //carregarUtilitzantList(entry_file, todos);
+            
+            String nombre_leido;
+            //bucle i  tinc que pensar la condició
+            do{
+                nombre_leido = entry_file.leerLinea();
+                if (nombre_leido!=null)
+                {
+                        if(!fichero_entrada.add(nombre_leido))
+                        {
+                            System.out.println("Nombre repetido " + nombre_leido + " no cargado");
+                        }
+                }
+            }while(nombre_leido!=null);
+            
+            return fichero_entrada;
+            
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+         return fichero_entrada;
     }
 
     
