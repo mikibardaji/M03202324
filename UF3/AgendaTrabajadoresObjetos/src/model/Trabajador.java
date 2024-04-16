@@ -4,13 +4,13 @@
  */
 package model;
 
-import java.util.Objects;
+import java.io.Serializable;
 
 /**
  *
  * @author jepa2698
  */
-public class Trabajador {
+public class Trabajador implements Serializable{
     String nombre ;
     int edad;
     double salari;

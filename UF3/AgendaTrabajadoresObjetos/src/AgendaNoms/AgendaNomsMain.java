@@ -4,14 +4,9 @@
  */
 package AgendaNoms;
 
-import Fitxers.EscrituraSerializadaPrimitius;
-import Fitxers.LecturaSerialitzadaPrimitius;
-import Fitxers.LineaEscrituraFitxer;
-import Fitxers.LineaLecturaFitxer;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -84,7 +79,7 @@ public class AgendaNomsMain {
             menu.addOption("Donar d'alta trballador");
             menu.addOption("Llistar ttreballador");
             menu.addOption("Guardar fitxers"); 
-            
+            menu.addOption("Guardar trabajadores mayores edad"); 
         } catch (OptionDuplicateException ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -103,21 +98,16 @@ public class AgendaNomsMain {
     private static void carregarFitxer(Agenda todos) {
 
         try {
+            todos.cargarTrabajadoresFichero("ficheros/trabajadoresObject.dat");
             
-            todos.cargarTrabajadoresFichero("ficheros/trabajadores.dat");
-
+        } catch(EOFException ex)
+        { //no es un error
+           System.out.println("Todos los trabajadores cargados en memoria " + todos.getListado().size()); 
+        }  
+        catch (IOException  | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         } 
-        catch(EOFException ex ){
-            System.out.println("Se han leidos " + todos.getListado().size());
-            
-        }
-        catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-        }
             
     }
 
@@ -163,9 +153,49 @@ public class AgendaNomsMain {
     }
 
     private static void gravarFitxer(Agenda todos) {
+ 
         try {
+            todos.salvarDatosFichero("ficheros/trabajadoresObject.dat");
+            System.out.println("Registros guardados " + todos.getListado().size());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        
+    }
+
+    
+
+    private static void gravarNombresNoExistentesEntrada(Agenda todos) {
+        
+    }
+
+    private static List<String> leerFicheroEntrada() {
+       return null;
+       
+       /*
+          try {
+            if (todos.cargarTrabajadoresFichero("ficheros/trabajadoresObjetos.dat"))
+            {
+                System.out.println("Datos Cargados" + todos.getListado().size());
+            }
+        } catch(EOFException ex)
+        {
+                System.out.println("Datos Cargados" + todos.getListado().size());
+        }
+        catch (IOException ex) {
+            Logger.getLogger(AgendaNomsMain.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AgendaNomsMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       */
+       
+       /*
+       
+              try {
           
-            todos.salvarDatosFichero("ficheros/trabajadores.dat");
+            todos.salvarDatosFichero("ficheros/trabajadoresObjetos.dat");
             System.out.println("SE han guardado los registros..."
                     + todos.getListado().size());
         } catch (FileNotFoundException ex) {
@@ -173,91 +203,7 @@ public class AgendaNomsMain {
         } catch (IOException ex) {
             Logger.getLogger(AgendaNomsMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }
-
-    private static void carregarUtilitzantList(LineaLecturaFitxer entry_file, Agenda todos) {
-            try{
-            List<String> names_file = new ArrayList();
-            String nombre_leido;
-            //bucle i  tinc que pensar la condició
-            do{
-                
-                    nombre_leido = entry_file.leerLinea();
-                    if (nombre_leido!=null)
-                    {
-                        names_file.add(nombre_leido);
-                    }
-               
-            }while(nombre_leido!=null);
-            
-             } catch (IOException ex) {
-                    Logger.getLogger(AgendaNomsMain.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-    }
-
-    private static void gravarNombresNoExistentesEntrada(Agenda todos) {
-        try {
-            //opcio mas facil
-            
-            //leer todo el fichero de entrada y cargarlo en una coleccion
-            List<String> nombres_fichero = leerFicheroEntrada(); //fichero de entrada
-            
-            //leer nombre a nombre en la agenda, y mirar si esta en la coleccion del fichero
-            LineaEscrituraFitxer salida = new LineaEscrituraFitxer("ficheros/nombres_sesion.txt");
-            //si esta, no lo grabo en la salida
-            int cont=0;
-         /*   for (String nombre : todos.getListado()) {
-                if (!nombres_fichero.contains(nombre))
-                {
-                    salida.escribirLinea(nombre);
-                    cont++;
-                }
-            }*/
-            //informar usuario
-            System.out.println("Nombres guardados ... " + cont );
-            //cerrar ficheros
-            salida.cerrarFicheros();
-
-        } catch (IOException ex) {
-            Logger.getLogger(AgendaNomsMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private static List<String> leerFicheroEntrada() {
-        List<String> fichero_entrada=new ArrayList();
-         try {
-            //leer el fichero de datos
-            LineaLecturaFitxer entry_file = new LineaLecturaFitxer("ficheros/nombres.txt");
-            //acumular nombres en una lista
-            
-            //opcio 1 comentada
-            //carregarUtilitzantList(entry_file, todos);
-            
-            String nombre_leido;
-            //bucle i  tinc que pensar la condició
-            do{
-                nombre_leido = entry_file.leerLinea();
-                if (nombre_leido!=null)
-                {
-                        if(!fichero_entrada.add(nombre_leido))
-                        {
-                            System.out.println("Nombre repetido " + nombre_leido + " no cargado");
-                        }
-                }
-            }while(nombre_leido!=null);
-            
-            return fichero_entrada;
-            
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-        }
-         return fichero_entrada;
+       */
     }
 
     

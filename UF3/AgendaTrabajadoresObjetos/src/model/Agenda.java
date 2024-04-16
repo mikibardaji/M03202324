@@ -4,8 +4,8 @@
  */
 package model;
 
-import Fitxers.EscrituraSerializadaPrimitius;
-import Fitxers.LecturaSerialitzadaPrimitius;
+import Fitxers.ObjetosEscrituraFicheros;
+import Fitxers.ObjectoLecturaFicheros;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,55 +51,60 @@ public class Agenda { //DAO
     }
     
     //carregar d'un fitxer d'entrada tots els treballadors
-    public boolean cargarTrabajadoresFichero(String ruta_fichero) 
-            throws IOException, EOFException
-    {
-        int cont =0;
-        LecturaSerialitzadaPrimitius entry_file = null;
-    
-            //leer el fichero de datos
+    public boolean cargarTrabajadoresFichero(String ruta_fichero) throws IOException, ClassNotFoundException 
            
-                entry_file=
-             new LecturaSerialitzadaPrimitius(ruta_fichero);
-            //acumular nombres en una lista
-            
-            //opcio 1 comentada
-            //carregarUtilitzantList(entry_file, todos);
-            
-            String nombre_leido;
-            int edad;
-            double salari;
-            Trabajador tra = null;
-            
-            //bucle i  tinc que pensar la condició
-            do{
-                nombre_leido = entry_file.LeerString();
-                edad = entry_file.leerInt();
-                salari = entry_file.leerDouble();
-                tra = new Trabajador(nombre_leido, edad, salari);
-                listado.add(tra);
-                cont++;
-            }   
-             while(true);
+    {
+       ObjectoLecturaFicheros fichero = new ObjectoLecturaFicheros(ruta_fichero);
+       Object obj;
+       do
+       {
+        obj = fichero.leerObjeto();
+         if (obj!= null && obj instanceof Trabajador)
+         {
+             Trabajador tr = (Trabajador) obj;
+             //listado.add(tr);
+             this.afegirTrabajador(tr);
+         }
 
+       }while(obj!=null);
+        
+       return true;
     }
     
-    public void salvarDatosFichero(String ruta) throws FileNotFoundException, IOException
+    public void salvarDatosFichero(String ruta) throws IOException 
     {
-          EscrituraSerializadaPrimitius escribir =
-   new EscrituraSerializadaPrimitius(ruta);
+        ObjetosEscrituraFicheros fichero = new ObjetosEscrituraFicheros(ruta);
         
-        
-        
-            for (Trabajador treballador : listado) {
-                escribir.grabarString(treballador.getNombre());
-                escribir.grabarInt(treballador.getEdad());
-                escribir.grabarDouble(treballador.getSalari());
-            }
-        escribir.cerrarFicheros();
-        
-        
+        //guardar de uno en uno
+        for (Trabajador worker : listado) {
+            fichero.escribirObjeto(worker);
+        }
+        fichero.cerrarFicheros();
         
     }
+    
+    
+    /*
+    Grabe en un fichero objetos, solo los trabajadores mayores de edad
+    y que retorne cuantos ha grabado
+    GrabarMayoresEdad
+    */
+    
+    
+/*
+    public void salvarTodosDatosFichero(String ruta) throws IOException 
+    {
+        ObjetosEscrituraFicheros fichero = new ObjetosEscrituraFicheros(ruta);
+        
+        //guardar de uno en uno
+        List<Object> listadoObjeto;
+        
+        
+        fichero.escribirListaObjetos(listado);
+
+        fichero.cerrarFicheros();
+        
+    }
+*/
     
 }
