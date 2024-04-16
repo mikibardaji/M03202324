@@ -87,21 +87,25 @@ public class Agenda { //DAO
     /*
     Grabe en un fichero objetos, solo los trabajadores mayores de edad
     y que retorne cuantos ha grabado
-    GrabarMayoresEdad
     */
-    public int grabarMayoresEdad(String ruta_relativa_archivo)
+       public int salvarDatosFicheroMayores(String ruta) throws IOException 
     {
-        //crear archivo
+        ObjetosEscrituraFicheros fichero = new ObjetosEscrituraFicheros(ruta);
+        int cont=0;
+        //guardar de uno en uno
+        for (Trabajador worker : listado) {
+            if(worker.getEdad()>18){
+            fichero.escribirObjeto(worker);
+            cont++;
+            }
         
-        //recorrer collection con todos los trabajadores
-            //si el trabajador es mayor de edad grabar
-            //si no, no grabar, o no hacer nada
-        
-        //cerrar archivo
-        
-        //devolver cantidad grabada
-        return 0;
+                
+            
+        }
+        fichero.cerrarFicheros();
+        return cont;
     }
+    
     
 /*
     public void salvarTodosDatosFichero(String ruta) throws IOException 
