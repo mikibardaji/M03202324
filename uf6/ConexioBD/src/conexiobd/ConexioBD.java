@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 //import java.sql.ResultSet;
 //import java.sql.ResultSetMetaData;
 import java.sql.*;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Country;
@@ -55,6 +56,12 @@ public class ConexioBD {
                     case 3:
                         InsertCountry2();
                         break;                         
+                    case 4:
+                        UpdateCapitalCountry();
+                        break;
+                    case 5:
+                        DeleteCapitalCountry();
+                        break;                
                 }
  
                 
@@ -185,8 +192,10 @@ public class ConexioBD {
                 //statement es el que tindra la instrucció sql
                 Statement stmt = conn.createStatement();
                 //Creem query de insert
+                String name = "El salvador";
+                double poblacion = 100;
                 String query = "INSERT INTO COUNTRIES  VALUES"
-                        + " (NULL,'El salvador','El salvador',100,50,2.0,83)";
+                        + " (NULL,'" + name + "','El salvador',"+poblacion+",50,2.0,83)";
                 //verificacio
                 System.out.println(query);
                 
@@ -242,6 +251,88 @@ public class ConexioBD {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println(ex.getSQLState());
+        }
+    }
+
+    /*
+    Demanarem el numero de pais i la seva nova capital
+    i l'actualitzarem... 
+    */
+    
+    private void UpdateCapitalCountry() {
+        try {
+            Connection conn;
+            Scanner sc = new Scanner(System.in);
+            conn = DBConnect.getConnection();
+            if (conn!=null)
+            {
+                
+            Statement stmt = conn.createStatement();
+                
+            System.out.println("Que numero de pais quieres cambiar");
+            int num_country = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Que nueva capital tienes");
+            String new_capital = sc.nextLine();
+            
+            String query = "UPDATE COUNTRIES "
+                    + " SET CAPITAL='" + new_capital +"' "
+                    + " WHERE ID = " + num_country;
+            System.out.println(query);
+                
+            int rowsAffected = stmt.executeUpdate(query);
+            System.out.println("parametros afectados " + rowsAffected);
+            stmt.close(); //
+            conn.close();
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Error SQL" + ex.getMessage());
+        }
+    }
+
+    private void DeleteCapitalCountry() {
+        try {
+            Connection conn;
+            Scanner sc = new Scanner(System.in);
+            conn = DBConnect.getConnection();
+            if (conn != null)
+            {
+                 System.out.println("Que numero de pais quieres cambiar");
+                 int num_country = sc.nextInt();
+                 
+                 Statement stmt = conn.createStatement();
+                
+                String query2 = "SELECT * from countries where id=" + num_country;
+                ResultSet cursor = stmt.executeQuery(query2);
+                int cont=0;
+                while(cursor.next())
+                {
+                    cont++;
+                }
+                System.out.println("Voy a borrar " + cont + "registros");
+                System.out.println("Estas seguro");
+                sc.nextLine();
+                String si_no = sc.nextLine();
+                stmt.close();
+                if (si_no.equalsIgnoreCase("SI"))
+                {
+                    String query = "DELETE FROM COUNTRIES "
+                         + " WHERE ID = ?";
+                    //verificacio
+                    System.out.println(query);
+
+                    PreparedStatement preparedQuery = conn.prepareStatement(query);
+                    preparedQuery.setInt(1, num_country);
+                    int rows = preparedQuery.executeUpdate();
+                    System.out.println("numero registros borrados ---- " + rows);
+                    preparedQuery.close();
+                }
+                 
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL" + ex.getMessage());
         }
     }
     
