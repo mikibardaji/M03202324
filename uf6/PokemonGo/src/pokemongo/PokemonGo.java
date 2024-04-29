@@ -179,7 +179,12 @@ public class PokemonGo {
     }
 
     private void salir() {
-        System.out.println("Te esperamos pronto de vuelta... ");
+        try {
+            System.out.println("Te esperamos pronto de vuelta... ");
+            entrenadores.cerrarConexion();
+        } catch (SQLException ex) {
+            System.out.println("Error cerrar conexión " + ex.getMessage());
+        }
     }
         
 }
