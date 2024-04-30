@@ -149,10 +149,35 @@ public class EntrenadorDAO {
      * Si no existei retorna null
      * @param name 
      */
-    public Entrenador devolverEntrenador(String name)
+    public Entrenador devolverEntrenador(String name) throws SQLException
     {
+        if (conn_principal!=null)
+        {
+            Statement stmt = conn_principal.createStatement();
+            String query = "Select id, name, password"
+                    + " from entrenadors where UPPER(name)"
+                    + " = '" + name.toUpperCase() + "'";
+            ResultSet cursor = stmt.executeQuery(query);
+            if (cursor.next()) //existe //FETCH
+            {
+                String nombre = cursor.getString("name");
+                String contrasenya = cursor.getString("password");
+                int id = cursor.getInt("id");
+                Entrenador encontrado = new Entrenador(id, nombre, contrasenya);
+                return encontrado;
+            }
+            else
+            {
+                //return new Entrenador(0,"","");
+                return null;
+            }
+            
+        }
+        else
+        {
+            return null;
+        }
         
-        return null;
     }
     
     
