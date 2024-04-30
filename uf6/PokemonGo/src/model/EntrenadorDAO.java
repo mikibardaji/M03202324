@@ -34,14 +34,21 @@ public class EntrenadorDAO {
                         + "(name, password) "
                         + " VALUES"
                         + " (?,?)"; //id no informat perque es autoincremental
-            //verificacio
-            System.out.println(query); //s'ha de treure quant funcioni 
+            if (!this.existeEntrenador(trainer.getName()))
+            {
+                System.out.println(query); //s'ha de treure quant funcioni 
             
-            PreparedStatement preparedQuery = conn_principal.prepareStatement(query);
+                PreparedStatement preparedQuery = conn_principal.prepareStatement(query);
             
-            preparedQuery.setString(1, trainer.getName());
-            preparedQuery.setString(2,trainer.getPassword());
-            rows = preparedQuery.executeUpdate();   
+                preparedQuery.setString(1, trainer.getName().toUpperCase());
+                preparedQuery.setString(2,trainer.getPassword());
+                rows = preparedQuery.executeUpdate();
+            }
+            else
+            {
+                rows = 0; //no dado de alta
+            }
+               
         }
         
         return rows;
@@ -54,14 +61,39 @@ public class EntrenadorDAO {
      * @param name
      * @return 
      */
-    public boolean existeEntrenador(String name)
+    public boolean existeEntrenador(String name) throws SQLException
     {
-        //fer una consulta y si existe
-        
-        //devolver true
-        
-        //si no existe devolver false
-        
+        if (conn_principal!=null)
+        {
+            Statement stmt = conn_principal.createStatement();
+            String query = "Select id, name, password"
+                    + " from entrenadors where UPPER(name)"
+                    + " = '" + name.toUpperCase() + "'";
+            
+            String query2 = "Select count(*) "
+                    + " from entrenadors where UPPER(name)"
+                    + " = '" + name.toUpperCase() + "'";
+            
+            System.out.println(query2);
+            ResultSet cursor = stmt.executeQuery(query2);
+            if (cursor.next())
+            {
+                int registros = cursor.getInt(1);
+                if (registros==1)
+                {
+                    return true;    
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+            else
+            {
+                return false;
+            }
+        }
         return false;
         
     }
@@ -77,7 +109,7 @@ public class EntrenadorDAO {
      */
     public Entrenador esborrarEntrenador(String name)
     {
-        
+        //TO DO CASA
         return null;
     }
     

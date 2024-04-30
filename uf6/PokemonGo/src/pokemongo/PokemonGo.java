@@ -154,7 +154,7 @@ public class PokemonGo {
             String password = sc.nextLine();
             Entrenador nuevo = new Entrenador(nombre, password);
             //llamar al dao existeEntrenador
-            //if.... 
+            //if (entrenadores.existeEntrenador(nombre))
             insertado = entrenadores.altaEntrenador(nuevo);
             if (insertado > 0)
             {
@@ -162,7 +162,7 @@ public class PokemonGo {
             }
             else
             {
-                System.out.println("Error insertando entrenador");
+                System.out.println("Error insertando entrenador puede que exista ya con el nombre " + nombre);
             }
         } catch (SQLException ex) {
             System.out.println("Error SQL insertando entrenador" + ex.getMessage());
