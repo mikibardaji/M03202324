@@ -5,9 +5,8 @@
 package model;
 
 import BD.DBConnect;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -78,6 +77,7 @@ public class EntrenadorDAO {
      */
     public Entrenador esborrarEntrenador(String name)
     {
+        
         return null;
     }
     
@@ -86,10 +86,29 @@ public class EntrenadorDAO {
      * retorna tots els entrenadors de la base de dades o null si no n'hi ha cap
      * @return 
      */
-    public List<Entrenador> totsEntrenadors()
+    public List<Entrenador> totsEntrenadors() throws SQLException
     {
-      
-        return null;
+        List<Entrenador> all_trainers = null;
+        if (conn_principal!=null)
+        {
+            Statement stmt = conn_principal.createStatement();
+            String query = "Select id, name, password"
+                    + " from entrenadors";
+            
+            ResultSet cursor = stmt.executeQuery(query);
+            all_trainers = new ArrayList<>();
+            while(cursor.next())
+            {
+                String nom = cursor.getString("name");
+                String contrasenya = cursor.getString("password");
+                int id = cursor.getInt("id");
+//                Entrenador nuevo = new Entrenador(id, nom, contrasenya);
+//                all_trainers.add(nuevo);
+                all_trainers.add(new Entrenador(id, nom, contrasenya));
+            }
+             cursor.close();
+        }
+        return all_trainers;
     }
     
     

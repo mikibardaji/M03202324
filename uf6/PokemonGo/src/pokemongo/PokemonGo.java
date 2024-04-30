@@ -4,6 +4,7 @@
  */
 package pokemongo;
 
+import BD.DBConnect;
 import fitxers.Caratula;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,9 +41,9 @@ public class PokemonGo {
             boolean exit = false;
             mostrarLogo();
             
-            MenuDaw menu = new MenuDaw("Manteniment Agenda ");
+            MenuDaw menu = new MenuDaw("****POKEMON GO***");
             
-            
+            DBConnect.loadDriver();
             addAllOptions(menu); 
             //introDadesProva(/* */);
             int opcio;
@@ -50,10 +51,22 @@ public class PokemonGo {
             //tractar opcio escollida bucle fins que donis sortir no acabi CASA
             do
             {
+//                     menu.addOption("Salir");
+//            menu.addOption("Dar de alta entrenador");
+//            menu.addOption("Dar de baja entrenador");
+//            menu.addOption("Consultar entrenador");
+//            menu.addOption("Listar entrenadores");
+//            menu.addOption("Cazar Pokemon");
+//            menu.addOption("Listar Pokemons Cazados");
+//            menu.addOption("Listar tipos Pokemon existentes en juego");
                 //mostrar el menu i escollir opcio CASA
                 opcio = menu.displayMenu();
                 switch(opcio)
                 {
+                    case 1: //Sortir
+                        salir();
+                        exit = true;
+                        break;                   
                     case 2:
                         altaEntrenador();
                         break;
@@ -64,24 +77,26 @@ public class PokemonGo {
                         consultaEntrenador();
                         break;
                     case 5:
-                        cazarPokemon();
+                        todosEntrenadores();
                         break;
                     case 6:
-                        listarMochila();
+                        cazarPokemon();
                         break;
                     case 7:
+                        listarMochila();
+                        break;
+                    case 8:
                         listarTodosPokemons();
                         break;
-                    case 1: //Sortir
-                        salir();
-                        exit = true;
-                        break;
+
                 } 
             }while(!exit);
             
             
         } catch (SQLException ex) {
             System.out.println("Hay un error SQL " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PokemonGo.class.getName()).log(Level.SEVERE, null, ex);
         }
  
     
@@ -115,6 +130,7 @@ public class PokemonGo {
             menu.addOption("Dar de alta entrenador");
             menu.addOption("Dar de baja entrenador");
             menu.addOption("Consultar entrenador");
+            menu.addOption("Listar entrenadores");
             menu.addOption("Cazar Pokemon");
             menu.addOption("Listar Pokemons Cazados");
             menu.addOption("Listar tipos Pokemon existentes en juego");
@@ -184,6 +200,27 @@ public class PokemonGo {
             entrenadores.cerrarConexion();
         } catch (SQLException ex) {
             System.out.println("Error cerrar conexión " + ex.getMessage());
+        }
+    }
+
+    private void todosEntrenadores() {
+        try {
+            //demanar coses a usuari
+            //no h'hi
+            
+            //interacció DAO
+            List<Entrenador> todos = entrenadores.totsEntrenadors();
+            
+            System.out.println("Todos los entrenadores pokemon... ");
+            //informar usuari
+            for (Entrenador trainer : todos) {
+                System.out.println(trainer);
+            }
+            System.out.println("Numero de entrenadores... "+ todos.size());
+            
+            
+        } catch (SQLException ex) {
+            System.out.println("Error sql" + ex.getSQLState() + " - " + ex.getMessage());
         }
     }
         
