@@ -35,32 +35,28 @@ public class PokemonGo {
     }
 
     /* la ejecucion programa*/
-    private void run() 
-    {
+    private void run() {
+        
         try {
             
             mostrarLogo();
-
             DBConnect.loadDriver();
-             
-            //introDadesProva(/* */);
             entrenadores = new EntrenadorDAO();
-            boolean user_valid = verificarPassword();
-            
+            //boolean user_valid = validar_usuari();
+            boolean user_valid = true;
             if (user_valid)
             {
-                pokemonGo_ok();
+                juego_valido();
             }
-            else
-            {
-                System.out.println("No has acertado password ");
-            }
+ 
         } catch (SQLException ex) {
             System.out.println("Hay un error SQL " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PokemonGo.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+ 
+    
+}
 
     private void mostrarLogo()  {
         try {
@@ -131,7 +127,23 @@ public class PokemonGo {
     }
 
     private void borrarEntrenador() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            sc = new Scanner(System.in);
+            System.out.println("Pon el nombre del entrenador a borrar");
+            String nombre = sc.nextLine();
+            Entrenador borrado = entrenadores.esborrarEntrenador(nombre);
+            if (borrado!=null)
+            {
+                System.out.println("Borrado " + borrado);
+            }
+            else
+            {
+                System.out.println("El entrenador " + nombre + " no existe en BD");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PokemonGo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     private void ConsultaEntrenador() {
@@ -184,80 +196,85 @@ public class PokemonGo {
         }
     }
 
-    private boolean verificarPassword() {
-        try {
+    private boolean validar_usuari() {
             sc = new Scanner(System.in);
-            System.out.println("Pon usuario");
-            String user = sc.nextLine();
-            System.out.println("Pon password");
-            String password = sc.nextLine();
-            
-            if (!entrenadores.existeEntrenador(user))            
-            {
-                entrenadores.altaEntrenador(new Entrenador(user,password));
-                return true;
-            }
-            else
-            {
-                Entrenador existente = entrenadores.devolverEntrenador(user);
-                if (existente.getPassword().equals(password))
+            try {
+            System.out.print("pon el usuario: ");
+            String nombre = sc.nextLine();
+            System.out.print("Pon el password: ");
+            String contrasenya = sc.nextLine();
+
+            if (entrenadores.existeEntrenador(nombre))
+            { //existeix
+                Entrenador existe = entrenadores.devolverEntrenador(nombre);
+                if (existe.getPassword().equals(contrasenya))
                 {
-                    return true; 
+                    System.out.println("Bienvenido de nuevo " + nombre);
+                    return true;
                 }
                 else
                 {
-                return false;
+                    System.out.println("Password incorrecto no puedes entrar");
+                    return false;
                 }
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PokemonGo.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-        
+            else
+            {   
+                //si no existeix
+                Entrenador alta = new Entrenador(nombre, contrasenya);
+                entrenadores.altaEntrenador(alta);
+                System.out.println("Usuario nuevo dado de alta");
+                return true;
+                
+            }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    return false;
+                }       
     }
 
-    private void pokemonGo_ok() {
-                    boolean exit = false;
-            MenuDaw menu = new MenuDaw("**** POKEMON GO  ***");
-            
-            addAllOptions(menu);
-            //tractar opcio escollida bucle fins que donis sortir no acabi CASA
-            do
-            {
+    private void juego_valido() {
+        boolean exit = true;
+         MenuDaw menu = new MenuDaw("**** POKEMON GO ***");
+                 addAllOptions(menu); 
+                 //introDadesProva(/* */);
+                 int opcio;
+                 
+                 //tractar opcio escollida bucle fins que donis sortir no acabi CASA
+                 do
+                 {
+                     //mostrar el menu i escollir opcio CASA
+                     opcio = menu.displayMenu();
+                     switch(opcio)
+                     {
+                         case 1: //Sortir
+                             salir();
+                             exit = true;
+                             break;                   
+                         case 2:
+                             altaEntrenador();
+                             break;
+                         case 3:
+                             borrarEntrenador();
+                             break;
+                         case 4:
+                             consultaEntrenador();
+                             break;
+                         case 5:
+                             todosEntrenadores();
+                             break;
+                         case 6:
+                             cazarPokemon();
+                             break;
+                         case 7:
+                             listarMochila();
+                             break;
+                         case 8:
+                             listarTodosPokemons();
+                             break;
 
-                //mostrar el menu i escollir opcio CASA
-                int opcio = menu.displayMenu();
-                switch(opcio)
-                {
-                    case 1: //Sortir
-                        salir();
-                        exit = true;
-                        break;                   
-                    case 2:
-                        altaEntrenador();
-                        break;
-                    case 3:
-                        borrarEntrenador();
-                        break;
-                    case 4:
-                        consultaEntrenador();
-                        break;
-                    case 5:
-                        todosEntrenadores();
-                        break;
-                    case 6:
-                        cazarPokemon();
-                        break;
-                    case 7:
-                        listarMochila();
-                        break;
-                    case 8:
-                        listarTodosPokemons();
-                        break;
-
-                } 
-            }while(!exit);
-            
+                     } 
+                 }while(!exit); 
     }
         
 }

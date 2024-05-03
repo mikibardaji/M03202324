@@ -74,7 +74,7 @@ public class EntrenadorDAO {
                     + " from entrenadors where UPPER(name)"
                     + " = '" + name.toUpperCase() + "'";
             
-            System.out.println(query2);
+            //System.out.println(query2);
             ResultSet cursor = stmt.executeQuery(query2);
             if (cursor.next())
             {
@@ -107,10 +107,29 @@ public class EntrenadorDAO {
      * @param name
      * @return 
      */
-    public Entrenador esborrarEntrenador(String name)
+    public Entrenador esborrarEntrenador(String name) throws SQLException
     {
-        //TO DO CASA
-        return null;
+        if (this.existeEntrenador(name))
+        {
+            Entrenador borrar = this.devolverEntrenador(name);
+            
+            Statement stmt = conn_principal.createStatement();
+            String query = "Delete "
+                    + " from entrenadors where upper(name) = '" + name.toUpperCase() + "'";
+            
+            int row = stmt.executeUpdate(query);
+            if (row>0)
+            {
+                return borrar;
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+        else
+            return null;
     }
     
     
