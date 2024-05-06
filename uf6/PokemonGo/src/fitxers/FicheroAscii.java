@@ -16,15 +16,15 @@ import java.util.List;
  *
  * @author mabardaji logo.pok
  */
-public class Caratula {
+public class FicheroAscii {
     File ruta_archivo; //objecte file necessari
     FileReader reader; //
     BufferedReader fichero;
     
     //els 2 constructors  (un sense el boolean i el altre amb el boolean
-    public Caratula() throws FileNotFoundException
+    public FicheroAscii(String ruta, String nombre_fichero) throws FileNotFoundException
     {
-        ruta_archivo = new File("ficheros/logo.pok");
+        ruta_archivo = new File(ruta+nombre_fichero);
         reader = new FileReader(ruta_archivo);
         fichero = new BufferedReader(reader);
     }

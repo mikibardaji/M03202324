@@ -5,7 +5,7 @@
 package pokemongo;
 
 import BD.DBConnect;
-import fitxers.Caratula;
+import fitxers.FicheroAscii;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import menuUtils.MenuDaw;
 import menuUtils.OptionDuplicateException;
+import model.CapturaDAO;
 import model.Entrenador;
 import model.EntrenadorDAO;
 import model.Pokemon;
@@ -29,6 +30,7 @@ public class PokemonGo {
     Scanner sc;
     EntrenadorDAO entrenadores;
     PokemonDAO pokedex;
+    CapturaDAO mochila;
     Entrenador login;
     /**
      * @param args the command line arguments
@@ -47,11 +49,13 @@ public class PokemonGo {
             DBConnect.loadDriver();
             entrenadores = new EntrenadorDAO();
             pokedex = new PokemonDAO();
-            //boolean user_valid = validar_usuari();
+            mochila = new CapturaDAO();
+            boolean user_valid;
+            user_valid = validar_usuari();
             //canviar a que devuelva String en lugar de boolean
             
-            login = recuperar_datos_entrenador();
-            boolean user_valid = true;
+            //login = recuperar_datos_entrenador();
+            user_valid = true;
             if (user_valid)
             {
                 juego_valido();
@@ -68,14 +72,12 @@ public class PokemonGo {
 
     private void mostrarLogo()  {
         try {
-            Caratula logo = new Caratula();
+        FicheroAscii logo = new FicheroAscii("ficheros/", "logo.pok");
             
             List<String> portada = logo.recuperarDatos();
             
-            for (String lineas : portada) {
-                System.out.println(lineas);
-            }
-            
+            mostrar_pantalla(portada);
+          
             
         } catch (FileNotFoundException ex) {
             System.out.println("Fichero no encontrado " + ex.getMessage());
@@ -168,7 +170,34 @@ public class PokemonGo {
             Pokemon aparecido = pokedex.getPokemonRandom();
             
             System.out.println(aparecido);
+            FicheroAscii pokemon_fichero = new FicheroAscii("pokemons/", aparecido.getNombre()+".pok");
+            List<String> lineas = pokemon_fichero.recuperarDatos();
+            mostrar_pantalla(lineas);
+            int CP = aparecido.getFuerzaCombate();
+            
+            System.out.println("Tiene Fuerza combate " + CP);
+            System.out.println("Entrenador " + login.getId());
+            System.out.println("pokemon " + aparecido.getNum_id());
+            
+            
+            mochila.darCaptura(login.getId(), aparecido.getNum_id(),CP );
+            System.out.println("Pokemon capturado en tu mochila");
+            
+            
+            
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (FileNotFoundException ex) {
+            try {
+                FicheroAscii pokemon_fichero = new FicheroAscii("pokemons/", "default.pok");
+                List<String> lineas = pokemon_fichero.recuperarDatos();
+                mostrar_pantalla(lineas);
+            } catch (FileNotFoundException ex1) {
+                System.out.println(ex.getMessage());
+            } catch (IOException ex1) {
+                System.out.println(ex.getMessage());
+            }
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
         
@@ -222,8 +251,8 @@ public class PokemonGo {
 
             if (entrenadores.existeEntrenador(nombre))
             { //existeix
-                Entrenador existe = entrenadores.devolverEntrenador(nombre);
-                if (existe.getPassword().equals(contrasenya))
+                login = entrenadores.devolverEntrenador(nombre);
+                if (login.getPassword().equals(contrasenya))
                 {
                     System.out.println("Bienvenido de nuevo " + nombre);
                     return true;
@@ -239,6 +268,7 @@ public class PokemonGo {
                 //si no existeix
                 Entrenador alta = new Entrenador(nombre, contrasenya);
                 entrenadores.altaEntrenador(alta);
+                login = entrenadores.devolverEntrenador(nombre);
                 System.out.println("Usuario nuevo dado de alta");
                 return true;
                 
@@ -283,14 +313,20 @@ public class PokemonGo {
                              cazarPokemon();
                              break;
                          case 7:
-                             listarMochila();
+                            listarMochila();
                              break;
                          case 8:
                              listarTodosPokemons();
                              break;
-
                      } 
                  }while(!exit); 
     }
-        
+ 
+    public void mostrar_pantalla(List<String> lineas)
+    {
+      for (String linea : lineas) {
+                    System.out.println(linea);
+                }
+
+    }
 }
