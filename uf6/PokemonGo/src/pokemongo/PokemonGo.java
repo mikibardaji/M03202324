@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import menuUtils.MenuDaw;
 import menuUtils.OptionDuplicateException;
+import model.Captura;
 import model.CapturaDAO;
 import model.Entrenador;
 import model.EntrenadorDAO;
@@ -204,9 +205,48 @@ public class PokemonGo {
     }
 
     private void listarMochila() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            //demanar usuario
+            
+            List<Captura> capturas = mochila.getPokemonsCapturat(login.getId());
+            for (Captura captura : capturas) {
+                
+                String nombre = pokedex.getNombrePokemon(captura.getNum_pokemon());
+                if (nombre!=null)
+                {
+                    System.out.println(nombre + "-" + captura.getCP());
+                }
+                
+            }
+            System.out.println("Tienes " + capturas.size() + " pokemons");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
+    private void listarMochilaOrdenada() {
+        try {
+            //demanar usuario
+            
+            List<Captura> capturas = mochila.getPokemonsCapturatOrdenats(login.getId());
+            for (Captura captura : capturas) {
+                
+                String nombre = pokedex.getNombrePokemon(captura.getNum_pokemon());
+                if (nombre!=null)
+                {
+                    System.out.println(nombre + "-" + captura.getCP());
+                }
+                
+            }
+            System.out.println("Tienes " + capturas.size() + " pokemons");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }    
+    
+    
+    
+    
     private void listarTodosPokemons() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -313,7 +353,8 @@ public class PokemonGo {
                              cazarPokemon();
                              break;
                          case 7:
-                            listarMochila();
+                            //listarMochila();
+                             listarMochilaOrdenada();
                              break;
                          case 8:
                              listarTodosPokemons();
