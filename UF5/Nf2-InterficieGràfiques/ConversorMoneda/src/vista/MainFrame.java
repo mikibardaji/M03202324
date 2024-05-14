@@ -7,6 +7,9 @@ package vista;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -38,11 +41,16 @@ public class MainFrame extends JFrame implements ActionListener{
         
         
        //anular la X de la finestra 
-//        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//        addWindowListener(new WindowAdapter()
-//        {
-//            
-//        });
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                doExit();
+            }
+            
+            
+            
+        });
         //afegir barra menú
         buildMenuBar();
         Container pane  = getContentPane();
@@ -55,6 +63,8 @@ public class MainFrame extends JFrame implements ActionListener{
        setLocationRelativeTo(null);
        setVisible(true);
     }
+
+   
 
     /*crearem una barra de menu
     amb 3 menús i itens
@@ -122,7 +132,12 @@ public class MainFrame extends JFrame implements ActionListener{
     }
 
     private void doExit() {
-        System.exit(0);
+        int answer = JOptionPane.showConfirmDialog(this, "Sure to Exit");
+        if (answer == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
+            
     }
 
     /**
