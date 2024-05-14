@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import model.ConversorModel;
 
 /**
  *
@@ -20,11 +21,13 @@ import javax.swing.JOptionPane;
 public class MainFrame extends JFrame implements ActionListener{
 
     private ActionListener listener;
+    
+    private final ConversorModel model_vista;
     /*
     afegir els components i fer-la visible
     */
-    public MainFrame()  {
-        
+    public MainFrame(ConversorModel model)  {
+        model_vista = model;
         initComponents();
     }
 
@@ -126,14 +129,17 @@ public class MainFrame extends JFrame implements ActionListener{
      * carregar el panel conversor al JFRAMe principal
      */
     private void showConverterPanel() {
-         ConverterPanel conversor = new ConverterPanel();   
+         ConverterPanel conversor = new ConverterPanel(model_vista);   
          this.setContentPane(conversor);
          this.validate();
 
     }
 
     private void showWelcomePanel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //Bienvenida2 bienvenida = new Bienvenida2();
+        WelcomePanel bienvenida = new WelcomePanel();   
+          this.setContentPane(bienvenida);
+         this.validate();
     }
     
     

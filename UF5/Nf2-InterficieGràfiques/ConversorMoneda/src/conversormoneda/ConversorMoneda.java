@@ -5,6 +5,7 @@
 package conversormoneda;
 
 import javax.swing.SwingUtilities;
+import model.ConversorModel;
 import vista.MainFrame;
 
 /**
@@ -18,9 +19,9 @@ public class ConversorMoneda {
      */
     public static void main(String[] args) {
         
-        
+        ConversorModel model = new ConversorModel();
         SwingUtilities.invokeLater(() -> {
-            MainFrame window = new MainFrame();
+            MainFrame window = new MainFrame(model);
     });
     }
     
