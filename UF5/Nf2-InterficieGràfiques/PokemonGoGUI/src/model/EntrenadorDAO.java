@@ -20,7 +20,12 @@ public class EntrenadorDAO {
         conn_principal = DBConnect.getConnection(); //estara oberta fins al final
     }
     
-    
+    /**
+     * 
+     * @param trainer
+     * @return 1 num registres inserted 0 if doesn't insert
+     * @throws SQLException 
+     */
     public int altaEntrenador(Entrenador trainer) throws SQLException
     {
 
